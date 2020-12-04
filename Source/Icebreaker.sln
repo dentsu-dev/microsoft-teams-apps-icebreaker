@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Icebreaker", "Icebreaker\Icebreaker.csproj", "{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceBreaker.Tests", "IceBreaker.Tests\IceBreaker.Tests.csproj", "{12598E3F-B898-41CE-AEF9-F2D109512F8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8BA1066-5695-4D71-ABB4-65E5A5E0C3D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12598E3F-B898-41CE-AEF9-F2D109512F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12598E3F-B898-41CE-AEF9-F2D109512F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12598E3F-B898-41CE-AEF9-F2D109512F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12598E3F-B898-41CE-AEF9-F2D109512F8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

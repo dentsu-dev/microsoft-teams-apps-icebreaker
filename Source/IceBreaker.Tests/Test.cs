@@ -11,7 +11,6 @@ namespace IceBreaker.Tests
     {
         public void LocalizationTest()
         {
-            Resources.PausePairingsButtonText
         }
     }
 }

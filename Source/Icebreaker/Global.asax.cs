@@ -18,10 +18,6 @@ namespace Icebreaker
     {
         protected void Application_Start()
         {
-            System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("ru-ru");
-            System.Threading.Thread.CurrentThread.CurrentCulture = ci;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
-
            Conversation.UpdateContainer(
                builder =>
                {

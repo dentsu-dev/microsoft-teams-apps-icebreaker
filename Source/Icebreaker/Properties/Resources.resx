@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ChatWithMatchButtonText" xml:space="preserve">
-    <value>Начать диалог с {0}</value>
+    <value>Поприветствовать {0}</value>
     <comment>Button text to initiate a chat with the person the user has been matched up with</comment>
   </data>
   <data name="ErrorOccured" xml:space="preserve">
-    <value>Произошла ошибка при обработке запроса. Повторить?</value>
+    <value>Произошла ошибка. Повторите попытку.</value>
     <comment>A generic message that is sent when there is an error occurring</comment>
   </data>
   <data name="InstallMessageKnownInstallerPart1" xml:space="preserve">
@@ -130,43 +130,43 @@
     <comment>Install message and also the welcome message when the app installer is known - {0} is the placeholder for the name of the user that has installed the app to the team, and {1} is the placeholder for the name of the team that the app has been installed to</comment>
   </data>
   <data name="InstallMessageKnownInstallerPart2" xml:space="preserve">
-    <value>Я помогу вам познакомиться с большим количеством людей в вашей организации, случайным образом объединяя вас с кем-то новым каждую неделю. У вас появится больше друзей и вы узнаете о людях, с которыми работаете. </value>
+    <value>Я помогу вам познакомиться с сотрудниками Dentsu Russia, и это будет взаимно :) Каждую неделю случайным образом будут определяться новые пары собеседников. Вы сможете узнать больше о людях, с которыми работаете, и найти среди них новых друзей!</value>
     <comment>Part 2 of the install message when the name of the installer is known</comment>
   </data>
   <data name="InstallMessageKnownInstallerPart3" xml:space="preserve">
-    <value>**Чтобы познакомиться с новыми людьми, просто держитесь крепче. Я скоро пришлю тебе приглашение.**</value>
+    <value>Новое знакомство совсем скоро! Ожидай приглашение и не упусти случай.</value>
     <comment>Part 3 of the install message with the name of the installer known</comment>
   </data>
   <data name="InstallMessageUnknownInstallerPart1" xml:space="preserve">
-    <value>Если вы читаете это, значит, я был установлен в **{0} комманду.** </value>
+    <value>Random Coffee установлен в **{0} комманду.**</value>
     <comment>Install message and also the welcome message when the app installer is not known - {0} is the placeholder for the name of the team that the app has been installed to</comment>
   </data>
   <data name="InstallMessageUnknownInstallerPart2" xml:space="preserve">
-    <value>Я помогу вам познакомиться с большим количеством людей в вашей организации, случайным образом объединяя вас с кем-то новым каждую неделю. У вас появится больше друзей и вы узнаете о людях, с которыми работаете.</value>
+    <value>Я помогу вам познакомиться с сотрудниками Dentsu Russia, и это будет взаимно :) Каждую неделю случайным образом будут определяться новые пары собеседников. Вы сможете узнать больше о людях, с которыми работаете, и найти среди них новых друзей!</value>
     <comment>Part 2 of the install message when the name of the installer is not known</comment>
   </data>
   <data name="InstallMessageUnknownInstallerPart3" xml:space="preserve">
-    <value>**Чтобы познакомиться с новыми людьми, просто держитесь крепче. Я скоро пришлю тебе приглашение.**</value>
+    <value>Новое знакомство совсем скоро! Ожидай приглашение и не упусти случай.</value>
     <comment>Part 3 of the install message when the name of the installer is not known</comment>
   </data>
   <data name="MatchUpCardContentPart1" xml:space="preserve">
-    <value>Привет снова! Я {0} в {1}. Бот, который каждую неделю объединяет вас с новым коллегой. На этой неделе ваш матч c - {2}.</value>
+    <value>Привет снова! Это {0}, и каждую неделю я нахожу для вас нового собеседника из числа сотрудников Dentsu. А сейчас рад вам представить коллегу {2}!</value>
     <comment>First part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardContentPart2" xml:space="preserve">
-    <value>Если у вас есть желание, настройте что-нибудь. Знакомиться с людьми легко!</value>
+    <value>Начать знакомство просто. Выбери подходящее действие.</value>
     <comment>Second part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardMatchedText" xml:space="preserve">
-    <value>Вы были сматчены с {0}.</value>
+    <value>Вы определены в пару с {0}.</value>
     <comment>The text saying who the user has been matched up with</comment>
   </data>
   <data name="MatchUpCardTitleContent" xml:space="preserve">
-    <value>Пришло время матча!</value>
+    <value>Пришло время нового знакомства!</value>
     <comment>The title text for the pairup notification adaptive card</comment>
   </data>
   <data name="MeetupContent" xml:space="preserve">
-    <value>Привет, похоже, на этой неделе нас нашел {0}. Было бы здорово встретиться за чашкой кофе, пообедать или позвонить, если у вас есть время.</value>
+    <value>Привет! На этой неделе {0} определил нас собеседниками :) Было бы здорово созвониться или встретиться за чашкой кофе. Искренне надеюсь на приятное времяпрепровождение.</value>
     <comment>Content of the Meetup for the propose meeting</comment>
   </data>
   <data name="MeetupTitle" xml:space="preserve">
@@ -174,15 +174,15 @@
     <comment>The title for the Meetup - {0} is the name of the first person that user has been matched with and {1} is the name of the user</comment>
   </data>
   <data name="OptInConfirmation" xml:space="preserve">
-    <value>Добро пожаловать! Мы скучали. Я возобновил твои матчи. Развлекайся!</value>
+    <value>Привет! Без тебя было скучно, но мы рады, что ты вернулся! Желаем приятных и интересных знакомств :)</value>
     <comment>The confirmation reply that is sent when the user resumes the matches</comment>
   </data>
   <data name="OptOutConfirmation" xml:space="preserve">
-    <value>Все готово. Я приостановил ваши матчи. Вы можете снова включить их, когда захотите.</value>
+    <value>Знакомства с вами приостановлены. Вы можете включить их снова, когда захотите.</value>
     <comment>The confirmation reply that is sent when the user pauses all matches</comment>
   </data>
   <data name="PausePairingsButtonText" xml:space="preserve">
-    <value>Остановить все матчи</value>
+    <value>Остановить знакомства</value>
     <comment>Button text to pause pairings</comment>
   </data>
   <data name="ProposeMeetupButtonText" xml:space="preserve">
@@ -190,11 +190,11 @@
     <comment>Button text to propose the meetup with the match of the user</comment>
   </data>
   <data name="ResumePairingsButtonText" xml:space="preserve">
-    <value>Возобновить матчи</value>
+    <value>Возобновить знакомства</value>
     <comment>Button text to resume pairings</comment>
   </data>
   <data name="SalutationTitleText" xml:space="preserve">
-    <value>Привет!</value>
+    <value>Привет! На этой неделе Random Coffee определил нас собеседниками :) Было бы здорово созвониться или встретиться за чашкой кофе. Искренне надеюсь на приятное времяпрепровождение.</value>
     <comment>This is the text for the salutation in the adaptive cards when the bot is installed to a team and also when new users are added to the team</comment>
   </data>
   <data name="TakeATourButtonText" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>The text for the button which launches a tour when clicked</comment>
   </data>
   <data name="UnrecognizedInput" xml:space="preserve">
-    <value>Извините, но я не могу обрабатывать входящее сообщение. Тем не менее, вы можете совершить экскурсию, чтобы узнать больше о моих возможностях.</value>
+    <value>К сожалению, не удается обработать ваше сообщение. Совершите экскурсию, чтобы узнать больше о моих возможностях.</value>
     <comment>The text for the unrecognized input scenario</comment>
   </data>
   <data name="WelcomeTourTitle" xml:space="preserve">

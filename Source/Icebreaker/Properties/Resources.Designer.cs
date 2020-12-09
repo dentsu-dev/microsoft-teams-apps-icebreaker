@@ -61,7 +61,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Начать диалог с {0}.
+        ///   Looks up a localized string similar to Поприветствовать {0}.
         /// </summary>
         internal static string ChatWithMatchButtonText {
             get {
@@ -70,7 +70,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Произошла ошибка при обработке запроса. Повторить?.
+        ///   Looks up a localized string similar to Произошла ошибка. Повторите попытку..
         /// </summary>
         internal static string ErrorOccured {
             get {
@@ -88,7 +88,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Я помогу вам познакомиться с большим количеством людей в вашей организации, случайным образом объединяя вас с кем-то новым каждую неделю. У вас появится больше друзей и вы узнаете о людях, с которыми работаете. .
+        ///   Looks up a localized string similar to Я помогу вам познакомиться с сотрудниками Dentsu Russia, и это будет взаимно :) Каждую неделю случайным образом будут определяться новые пары собеседников. Вы сможете узнать больше о людях, с которыми работаете, и найти среди них новых друзей!.
         /// </summary>
         internal static string InstallMessageKnownInstallerPart2 {
             get {
@@ -97,7 +97,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to **Чтобы познакомиться с новыми людьми, просто держитесь крепче. Я скоро пришлю тебе приглашение.**.
+        ///   Looks up a localized string similar to Новое знакомство совсем скоро! Ожидай приглашение и не упусти случай..
         /// </summary>
         internal static string InstallMessageKnownInstallerPart3 {
             get {
@@ -106,7 +106,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Если вы читаете это, значит, я был установлен в **{0} комманду.** .
+        ///   Looks up a localized string similar to Random Coffee установлен в **{0} комманду.**.
         /// </summary>
         internal static string InstallMessageUnknownInstallerPart1 {
             get {
@@ -115,7 +115,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Я помогу вам познакомиться с большим количеством людей в вашей организации, случайным образом объединяя вас с кем-то новым каждую неделю. У вас появится больше друзей и вы узнаете о людях, с которыми работаете..
+        ///   Looks up a localized string similar to Я помогу вам познакомиться с сотрудниками Dentsu Russia, и это будет взаимно :) Каждую неделю случайным образом будут определяться новые пары собеседников. Вы сможете узнать больше о людях, с которыми работаете, и найти среди них новых друзей!.
         /// </summary>
         internal static string InstallMessageUnknownInstallerPart2 {
             get {
@@ -124,7 +124,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to **Чтобы познакомиться с новыми людьми, просто держитесь крепче. Я скоро пришлю тебе приглашение.**.
+        ///   Looks up a localized string similar to Новое знакомство совсем скоро! Ожидай приглашение и не упусти случай..
         /// </summary>
         internal static string InstallMessageUnknownInstallerPart3 {
             get {
@@ -133,7 +133,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Привет снова! Я {0} в {1}. Бот, который каждую неделю объединяет вас с новым коллегой. На этой неделе ваш матч c - {2}..
+        ///   Looks up a localized string similar to Привет снова! Это {0}, и каждую неделю я нахожу для вас нового собеседника из числа сотрудников Dentsu. А сейчас рад вам представить коллегу {2}!.
         /// </summary>
         internal static string MatchUpCardContentPart1 {
             get {
@@ -142,7 +142,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Если у вас есть желание, настройте что-нибудь. Знакомиться с людьми легко!.
+        ///   Looks up a localized string similar to Начать знакомство просто. Выбери подходящее действие..
         /// </summary>
         internal static string MatchUpCardContentPart2 {
             get {
@@ -151,7 +151,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы были сматчены с {0}..
+        ///   Looks up a localized string similar to Вы определены в пару с {0}..
         /// </summary>
         internal static string MatchUpCardMatchedText {
             get {
@@ -160,7 +160,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пришло время матча!.
+        ///   Looks up a localized string similar to Пришло время нового знакомства!.
         /// </summary>
         internal static string MatchUpCardTitleContent {
             get {
@@ -169,7 +169,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Привет, похоже, на этой неделе нас нашел {0}. Было бы здорово встретиться за чашкой кофе, пообедать или позвонить, если у вас есть время..
+        ///   Looks up a localized string similar to Привет! На этой неделе {0} определил нас собеседниками :) Было бы здорово созвониться или встретиться за чашкой кофе. Искренне надеюсь на приятное времяпрепровождение..
         /// </summary>
         internal static string MeetupContent {
             get {
@@ -187,7 +187,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Добро пожаловать! Мы скучали. Я возобновил твои матчи. Развлекайся!.
+        ///   Looks up a localized string similar to Привет! Без тебя было скучно, но мы рады, что ты вернулся! Желаем приятных и интересных знакомств :).
         /// </summary>
         internal static string OptInConfirmation {
             get {
@@ -196,7 +196,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Все готово. Я приостановил ваши матчи. Вы можете снова включить их, когда захотите..
+        ///   Looks up a localized string similar to Знакомства с вами приостановлены. Вы можете включить их снова, когда захотите..
         /// </summary>
         internal static string OptOutConfirmation {
             get {
@@ -205,7 +205,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Остановить все матчи.
+        ///   Looks up a localized string similar to Остановить знакомства.
         /// </summary>
         internal static string PausePairingsButtonText {
             get {
@@ -223,7 +223,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Возобновить матчи.
+        ///   Looks up a localized string similar to Возобновить знакомства.
         /// </summary>
         internal static string ResumePairingsButtonText {
             get {
@@ -232,7 +232,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Привет!.
+        ///   Looks up a localized string similar to Привет! На этой неделе Random Coffee определил нас собеседниками :) Было бы здорово созвониться или встретиться за чашкой кофе. Искренне надеюсь на приятное времяпрепровождение..
         /// </summary>
         internal static string SalutationTitleText {
             get {
@@ -250,7 +250,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Извините, но я не могу обрабатывать входящее сообщение. Тем не менее, вы можете совершить экскурсию, чтобы узнать больше о моих возможностях..
+        ///   Looks up a localized string similar to К сожалению, не удается обработать ваше сообщение. Совершите экскурсию, чтобы узнать больше о моих возможностях..
         /// </summary>
         internal static string UnrecognizedInput {
             get {

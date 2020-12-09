@@ -259,6 +259,15 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Посмотреть профиль.
+        /// </summary>
+        internal static string ViewProfileButtonText {
+            get {
+                return ResourceManager.GetString("ViewProfileButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Тур.
         /// </summary>
         internal static string WelcomeTourTitle {

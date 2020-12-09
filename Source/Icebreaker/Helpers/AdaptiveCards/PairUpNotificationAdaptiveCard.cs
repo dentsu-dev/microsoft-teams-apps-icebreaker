@@ -4,6 +4,9 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using System.Net;
+using System.Security.Policy;
+
 namespace Icebreaker.Helpers.AdaptiveCards
 {
     using System;
@@ -59,6 +62,8 @@ namespace Icebreaker.Helpers.AdaptiveCards
             var chatWithMatchButtonText = string.Format(Resources.ChatWithMatchButtonText, recipientGivenName);
             var pauseMatchesButtonText = Resources.PausePairingsButtonText;
             var proposeMeetupButtonText = Resources.ProposeMeetupButtonText;
+            var viewProfileText = Resources.ViewProfileButtonText;
+            var recipientEmailEncode = WebUtility.HtmlEncode(recipient.Email);
 
             var variablesToValues = new Dictionary<string, string>()
             {
@@ -70,7 +75,9 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 { "pauseMatchesButtonText", pauseMatchesButtonText },
                 { "proposeMeetupButtonText", proposeMeetupButtonText },
              //   { "meetingLink", meetingLink },
-                { "personUpn", recipientUpn }
+                { "personUpn", recipientUpn },
+                { "viewProfileText", viewProfileText },
+                { "personEmail", recipientEmailEncode }
             };
 
             var cardBody = CardTemplate;

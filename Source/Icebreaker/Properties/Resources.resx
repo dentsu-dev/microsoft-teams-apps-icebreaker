@@ -205,6 +205,9 @@
     <value>К сожалению, не удается обработать ваше сообщение. Совершите экскурсию, чтобы узнать больше о моих возможностях.</value>
     <comment>The text for the unrecognized input scenario</comment>
   </data>
+  <data name="ViewProfileButtonText" xml:space="preserve">
+    <value>Посмотреть профиль</value>
+  </data>
   <data name="WelcomeTourTitle" xml:space="preserve">
     <value>Тур</value>
     <comment>This is the title of the tour for the Icebreaker Bot</comment>

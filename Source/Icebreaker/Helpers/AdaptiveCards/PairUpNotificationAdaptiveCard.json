@@ -51,6 +51,11 @@
       "title": "%chatWithMatchButtonText%",
       "url": "https://teams.microsoft.com/l/chat/0/0?users=%personUpn%&message=Hi%20there%20"
     },
+    {
+      "type": "Action.OpenUrl",
+      "title": "%viewProfileText%",
+      "url": "https://one.dentsu.ru/addressbook?query=%personEmail%"
+    },
     //{
     //  "type": "Action.OpenUrl",
     //  "title": "%proposeMeetupButtonText%",

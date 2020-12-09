@@ -199,9 +199,10 @@
     <Compile Include="Helpers\AdaptiveCards\UnrecognizedInputAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\WelcomeNewMemberAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\WelcomeTeamAdaptiveCard.cs" />
-    <Compile Include="Helpers\IcebreakerBotDataProvider.cs" />
-    <Compile Include="Helpers\TeamInstallInfo.cs" />
-    <Compile Include="Helpers\UserInfo.cs" />
+    <Compile Include="Helpers\Db\IcebreakerBotDataProvider.cs" />
+    <Compile Include="Helpers\Db\TeamInstallInfo.cs" />
+    <Compile Include="Helpers\Db\UserInfo.cs" />
+    <Compile Include="Helpers\Db\UserMatchInfo.cs" />
     <Compile Include="IcebreakerBot.cs" />
     <Compile Include="IcebreakerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

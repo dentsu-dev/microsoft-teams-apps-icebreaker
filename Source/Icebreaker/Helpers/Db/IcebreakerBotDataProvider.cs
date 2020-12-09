@@ -4,18 +4,18 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
-namespace Icebreaker.Helpers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.Azure;
-    using Microsoft.Azure.Documents;
-    using Microsoft.Azure.Documents.Client;
-    using Microsoft.Azure.Documents.Linq;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.Azure;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Documents.Linq;
 
+namespace Icebreaker.Helpers.Db
+{
     /// <summary>
     /// Data provider routines
     /// </summary>
@@ -30,6 +30,7 @@ namespace Icebreaker.Helpers
         private Database database;
         private DocumentCollection teamsCollection;
         private DocumentCollection usersCollection;
+        private DocumentCollection usersMatchInfoCollection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IcebreakerBotDataProvider"/> class.
@@ -171,6 +172,7 @@ namespace Icebreaker.Helpers
             var databaseName = CloudConfigurationManager.GetSetting("CosmosDBDatabaseName");
             var teamsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionTeams");
             var usersCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionUsers");
+            var usersMathInfoCollectionName = "UsersMathInfo";
 
             this.documentClient = new DocumentClient(new Uri(endpointUrl), primaryKey);
 
@@ -213,6 +215,14 @@ namespace Icebreaker.Helpers
             usersCollectionDefinition.PartitionKey.Paths.Add("/id");
             this.usersCollection = await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, usersCollectionDefinition, useSharedOffer ? null : requestOptions);
 
+            // Get a reference to the Users collection, creating it if needed
+            var userMathInfoCollectionDefinition = new DocumentCollection
+            {
+                Id = usersMathInfoCollectionName
+            };
+            userMathInfoCollectionDefinition.PartitionKey.Paths.Add("/id");
+            this.usersMatchInfoCollection = await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, userMathInfoCollectionDefinition, useSharedOffer ? null : requestOptions);
+            
             this.telemetryClient.TrackTrace("Data store initialized");
         }
 

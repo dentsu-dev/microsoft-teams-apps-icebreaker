@@ -4,12 +4,12 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
-namespace Icebreaker.Helpers
-{
-    using System.Collections.Generic;
-    using Microsoft.Azure.Documents;
-    using Newtonsoft.Json;
+using System.Collections.Generic;
+using Microsoft.Azure.Documents;
+using Newtonsoft.Json;
 
+namespace Icebreaker.Helpers.Db
+{
     /// <summary>
     /// Represents a user
     /// </summary>

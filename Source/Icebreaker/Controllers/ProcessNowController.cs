@@ -59,5 +59,34 @@ namespace Icebreaker.Controllers
         {
             return await this.bot.MakePairsAndNotify();
         }
+
+        /// <summary>
+        /// Action to process matches
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <returns>Success (1) or failure (-1) code</returns>
+        [Route("api/processFeedback/{key}")]
+        public async Task<IHttpActionResult> GetFeedback([FromUri] string key)
+        {
+            var isKeyMatch = object.Equals(key, CloudConfigurationManager.GetSetting("Key"));
+            if (isKeyMatch)
+            {
+                // Get the token here to proactively trigger a refresh if the cached token is expired
+                // This avoids a race condition in MicrosoftAppCredentials.GetTokenAsync that can lead it to return an expired token
+                await this.botCredentials.GetTokenAsync();
+
+                HostingEnvironment.QueueBackgroundWorkItem(ct => this.CreateNotifiesMsgs());
+                return this.StatusCode(System.Net.HttpStatusCode.OK);
+            }
+            else
+            {
+                return this.Unauthorized();
+            }
+        }
+
+        private async Task<int> CreateNotifiesMsgs()
+        {
+            return await this.bot.CreateFeadbackMsgAndNotify();
+        }
     }
 }

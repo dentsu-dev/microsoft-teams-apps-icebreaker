@@ -48,9 +48,9 @@ namespace Icebreaker.Helpers.AdaptiveCards
             // To start a chat with a guest user, use their external email, not the UPN
             var recipientUpn = !IsGuestUser(recipient) ? recipient.UserPrincipalName : recipient.Email;
 
-            var meetingTitle = string.Format(Resources.MeetupTitle, senderGivenName, recipientGivenName);
-            var meetingContent = string.Format(Resources.MeetupContent, botDisplayName);
-            var meetingLink = "https://teams.microsoft.com/l/meeting/new?subject=" + Uri.EscapeDataString(meetingTitle) + "&attendees=" + recipientUpn + "&content=" + Uri.EscapeDataString(meetingContent);
+           // var meetingTitle = string.Format(Resources.MeetupTitle, senderGivenName, recipientGivenName);
+           // var meetingContent = string.Format(Resources.MeetupContent, botDisplayName);
+           // var meetingLink = "https://teams.microsoft.com/l/meeting/new?subject=" + Uri.EscapeDataString(meetingTitle) + "&attendees=" + recipientUpn + "&content=" + Uri.EscapeDataString(meetingContent);
 
             var matchUpCardTitleContent = Resources.MatchUpCardTitleContent;
             var matchUpCardMatchedText = string.Format(Resources.MatchUpCardMatchedText, recipient.Name);
@@ -69,7 +69,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 { "chatWithMatchButtonText", chatWithMatchButtonText },
                 { "pauseMatchesButtonText", pauseMatchesButtonText },
                 { "proposeMeetupButtonText", proposeMeetupButtonText },
-                { "meetingLink", meetingLink },
+              //  { "meetingLink", meetingLink },
                 { "personUpn", recipientUpn }
             };
 

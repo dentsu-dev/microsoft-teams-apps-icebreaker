@@ -4,11 +4,11 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
-namespace Icebreaker.Helpers
-{
-    using Microsoft.Azure.Documents;
-    using Newtonsoft.Json;
+using Microsoft.Azure.Documents;
+using Newtonsoft.Json;
 
+namespace Icebreaker.Helpers.Db
+{
     /// <summary>
     /// Represents information about a team to which the Icebreaker app was installed
     /// </summary>

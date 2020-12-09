@@ -4,6 +4,8 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using Icebreaker.Helpers.Db;
+
 namespace Icebreaker
 {
     using System;
@@ -259,6 +261,70 @@ namespace Icebreaker
         public Task OptInUser(string tenantId, string userId, string serviceUrl)
         {
             return this.dataProvider.SetUserInfoAsync(tenantId, userId, true, serviceUrl);
+        }
+
+        /// <summary>
+        /// Generate pairups and send pairup notifications.
+        /// </summary>
+        /// <returns>The number of pairups that were made</returns>
+        public async Task<int> CreateFeadbackMsgAndNotify()
+        {
+            return 0;
+            //this.telemetryClient.TrackTrace("Making feadback notifies");
+
+
+            //var installedTeamsCount = 0;
+            //var pairsNotifiedCount = 0;
+            //var usersNotifiedCount = 0;
+
+            //try
+            //{
+            //    var teams = await this.dataProvider.GetInstalledTeamsAsync();
+            //    installedTeamsCount = teams.Count;
+            //    this.telemetryClient.TrackTrace($"Generating pairs for {installedTeamsCount} teams");
+
+            //    foreach (var team in teams)
+            //    {
+            //        this.telemetryClient.TrackTrace($"Pairing members of team {team.Id}");
+
+            //        try
+            //        {
+            //            MicrosoftAppCredentials.TrustServiceUrl(team.ServiceUrl);
+            //            var connectorClient = new ConnectorClient(new Uri(team.ServiceUrl));
+
+            //            var teamName = await this.GetTeamNameAsync(connectorClient, team.TeamId);
+            //            var optedInUsers = await this.GetOptedInUsers(connectorClient, team);
+
+            //            foreach (var pair in this.MakePairs(optedInUsers).Take(this.maxPairUpsPerTeam))
+            //            {
+            //                usersNotifiedCount += await this.NotifyPair(connectorClient, team.TenantId, teamName, pair);
+            //                pairsNotifiedCount++;
+            //            }
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            this.telemetryClient.TrackTrace($"Error pairing up team members: {ex.Message}", SeverityLevel.Warning);
+            //            this.telemetryClient.TrackException(ex);
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.telemetryClient.TrackTrace($"Error making pairups: {ex.Message}", SeverityLevel.Warning);
+            //    this.telemetryClient.TrackException(ex);
+            //}
+
+            //// Log telemetry about the pairups
+            //var properties = new Dictionary<string, string>
+            //{
+            //    { "InstalledTeamsCount", installedTeamsCount.ToString() },
+            //    { "PairsNotifiedCount", pairsNotifiedCount.ToString() },
+            //    { "UsersNotifiedCount", usersNotifiedCount.ToString() },
+            //};
+            //this.telemetryClient.TrackEvent("ProcessedPairups", properties);
+
+            //this.telemetryClient.TrackTrace($"Made {pairsNotifiedCount} pairups, {usersNotifiedCount} notifications sent");
+            //return pairsNotifiedCount;
         }
 
         /// <summary>

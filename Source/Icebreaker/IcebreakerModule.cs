@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
+using Icebreaker.Helpers.Db;
+
 namespace Icebreaker
 {
     using Autofac;

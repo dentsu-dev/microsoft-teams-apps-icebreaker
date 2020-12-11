@@ -157,7 +157,7 @@
     <comment>First part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardContentPart2" xml:space="preserve">
-    <value>Начать общение просто: посмотрите профиль человека на портале, чтобы узнать его интересы, и скажите "Привет!"</value>
+    <value>Начать общение просто: посмотрите профиль человека на портале, чтобы узнать его интересы, и скажите \"Привет!\"</value>
     <comment>Second part of the match up card main content</comment>
   </data>
   <data name="MatchUpCardMatchedText" xml:space="preserve">

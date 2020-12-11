@@ -151,7 +151,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Начать общение просто: посмотрите профиль человека на портале, чтобы узнать его интересы, и скажите &quot;Привет!&quot;.
+        ///   Looks up a localized string similar to Начать общение просто: посмотрите профиль человека на портале, чтобы узнать его интересы, и скажите \&quot;Привет!\&quot;.
         /// </summary>
         internal static string MatchUpCardContentPart2 {
             get {

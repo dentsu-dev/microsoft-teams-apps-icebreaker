@@ -79,7 +79,16 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вы читаете это, потому-что {0} добавил меня в **{1} Team.**.
+        ///   Looks up a localized string similar to Привет! На этой неделе ты мой интересный собеседник :).
+        /// </summary>
+        internal static string InitMessageToRecipientText {
+            get {
+                return ResourceManager.GetString("InitMessageToRecipientText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Хорошая новость! {0} добавил Random Coffee в **{1} Team.**.
         /// </summary>
         internal static string InstallMessageKnownInstallerPart1 {
             get {
@@ -133,7 +142,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Привет снова! Это {0}, и каждую неделю я нахожу для вас нового собеседника из числа сотрудников Dentsu. А сейчас рад вам представить коллегу {2}!.
+        ///   Looks up a localized string similar to Привет снова. Это {0}, и каждую неделю я нахожу для вас нового собеседника из числа сотрудников Dentsu. А сейчас рад вам представить {2}! Еще не знакомы?.
         /// </summary>
         internal static string MatchUpCardContentPart1 {
             get {
@@ -142,7 +151,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Начать знакомство просто. Выбери подходящее действие..
+        ///   Looks up a localized string similar to Начать общение просто: посмотрите профиль человека на портале, чтобы узнать его интересы, и скажите &quot;Привет!&quot;.
         /// </summary>
         internal static string MatchUpCardContentPart2 {
             get {

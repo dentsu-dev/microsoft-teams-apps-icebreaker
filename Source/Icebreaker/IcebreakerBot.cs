@@ -236,7 +236,6 @@ namespace Icebreaker
             };
             return this.dataProvider.UpdateTeamInstallStatusAsync(teamInstallInfo, false);
         }
-
         /// <summary>
         /// Opt out the user from further pairups
         /// </summary>

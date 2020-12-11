@@ -64,7 +64,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
             var proposeMeetupButtonText = Resources.ProposeMeetupButtonText;
             var viewProfileText = Resources.ViewProfileButtonText;
             var recipientEmailEncode = WebUtility.HtmlEncode(recipient.Email);
-            var messageInit = WebUtility.HtmlEncode(Resources.InitMessageToRecipientText);
+            var messageInit = WebUtility.HtmlEncode("Привет!"); // WebUtility.HtmlEncode(Resources.InitMessageToRecipientText);
 
             var variablesToValues = new Dictionary<string, string>()
             {

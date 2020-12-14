@@ -64,6 +64,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
             var proposeMeetupButtonText = Resources.ProposeMeetupButtonText;
             var viewProfileText = Resources.ViewProfileButtonText;
             var recipientEmailEncode = WebUtility.HtmlEncode(recipient.Email);
+            var messageInit = Uri.EscapeUriString(Resources.InitMessageToRecipientText);
 
             var variablesToValues = new Dictionary<string, string>()
             {
@@ -77,7 +78,8 @@ namespace Icebreaker.Helpers.AdaptiveCards
              //   { "meetingLink", meetingLink },
                 { "personUpn", recipientUpn },
                 { "viewProfileText", viewProfileText },
-                { "personEmail", recipientEmailEncode }
+                { "personEmail", recipientEmailEncode },
+                { "messageInit", messageInit }
             };
 
             var cardBody = CardTemplate;

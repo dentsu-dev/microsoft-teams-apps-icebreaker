@@ -195,6 +195,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\AdaptiveCards\FeedbackCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\PairUpNotificationAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\UnrecognizedInputAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\WelcomeNewMemberAdaptiveCard.cs" />
@@ -224,6 +226,7 @@
     </Content>
     <Content Include="Helpers\AdaptiveCards\WelcomeTeamAdaptiveCard.json" />
     <Content Include="lib\microsoft-teams\dist\MicrosoftTeams.js.map" />
+    <Content Include="Helpers\AdaptiveCards\FeedbackCard.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -238,6 +241,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

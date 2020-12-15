@@ -79,6 +79,87 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не понравилось.
+        /// </summary>
+        internal static string FeedBackAnswerBad {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerBad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я передумал.
+        /// </summary>
+        internal static string FeedBackAnswerCanceled {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Хорошо.
+        /// </summary>
+        internal static string FeedBackAnswerGood {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось выбрать свободное время.
+        /// </summary>
+        internal static string FeedBackAnswerNoGoodTime {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerNoGoodTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Собеседник не ответил.
+        /// </summary>
+        internal static string FeedBackAnswerNoResponse {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerNoResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нормально.
+        /// </summary>
+        internal static string FeedBackAnswerNormal {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerNormal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Как прошла ваша встреча?.
+        /// </summary>
+        internal static string FeedBackAnswerText {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Супер.
+        /// </summary>
+        internal static string FeedBackAnswerVeryGood {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerVeryGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Расскажешь почему?.
+        /// </summary>
+        internal static string FeedBackAnswerWhyNotText {
+            get {
+                return ResourceManager.GetString("FeedBackAnswerWhyNotText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Привет! На этой неделе ты мой интересный собеседник :).
         /// </summary>
         internal static string InitMessageToRecipientText {
@@ -187,11 +268,29 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Удалось ли вам встретиться с {0} на этой неделе?.
+        /// </summary>
+        internal static string MeetupFeedBackMsg {
+            get {
+                return ResourceManager.GetString("MeetupFeedBackMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} / {1} Встреча.
         /// </summary>
         internal static string MeetupTitle {
             get {
                 return ResourceManager.GetString("MeetupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нет.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -282,6 +381,15 @@ namespace Icebreaker.Properties {
         internal static string WelcomeTourTitle {
             get {
                 return ResourceManager.GetString("WelcomeTourTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Да.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

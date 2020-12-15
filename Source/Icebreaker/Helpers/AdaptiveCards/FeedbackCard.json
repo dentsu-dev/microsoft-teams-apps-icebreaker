@@ -1,0 +1,43 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "%mainMessageText%",
+          "wrap": true,
+          "maxLines": 2
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "%yesButtonText%",
+      "data": {
+        "msteams": {
+          "type": "messageBack",
+          "displayText": "%yesButtonText%",
+          "text": "feedbackYes"
+        }
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "%notButtonText%",
+      "data": {
+        "msteams": {
+          "type": "messageBack",
+          "displayText": "%notButtonText%",
+          "text": "feedbackNo"
+        }
+      }
+    }
+  ],
+  "version": "1.0"
+}

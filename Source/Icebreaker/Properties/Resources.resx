@@ -125,6 +125,33 @@
     <value>Произошла ошибка. Повторите попытку.</value>
     <comment>A generic message that is sent when there is an error occurring</comment>
   </data>
+  <data name="FeedBackAnswerBad" xml:space="preserve">
+    <value>Не понравилось</value>
+  </data>
+  <data name="FeedBackAnswerCanceled" xml:space="preserve">
+    <value>Я передумал</value>
+  </data>
+  <data name="FeedBackAnswerGood" xml:space="preserve">
+    <value>Хорошо</value>
+  </data>
+  <data name="FeedBackAnswerNoGoodTime" xml:space="preserve">
+    <value>Не удалось выбрать свободное время</value>
+  </data>
+  <data name="FeedBackAnswerNoResponse" xml:space="preserve">
+    <value>Собеседник не ответил</value>
+  </data>
+  <data name="FeedBackAnswerNormal" xml:space="preserve">
+    <value>Нормально</value>
+  </data>
+  <data name="FeedBackAnswerText" xml:space="preserve">
+    <value>Как прошла ваша встреча?</value>
+  </data>
+  <data name="FeedBackAnswerVeryGood" xml:space="preserve">
+    <value>Супер</value>
+  </data>
+  <data name="FeedBackAnswerWhyNotText" xml:space="preserve">
+    <value>Расскажешь почему?</value>
+  </data>
   <data name="InitMessageToRecipientText" xml:space="preserve">
     <value>Привет! На этой неделе ты мой интересный собеседник :)</value>
   </data>
@@ -172,9 +199,15 @@
     <value>Привет! На этой неделе {0} определил нас собеседниками :) Было бы здорово созвониться или встретиться за чашкой кофе. Искренне надеюсь на приятное времяпрепровождение.</value>
     <comment>Content of the Meetup for the propose meeting</comment>
   </data>
+  <data name="MeetupFeedBackMsg" xml:space="preserve">
+    <value>Удалось ли вам встретиться с {0} на этой неделе?</value>
+  </data>
   <data name="MeetupTitle" xml:space="preserve">
     <value>{0} / {1} Встреча</value>
     <comment>The title for the Meetup - {0} is the name of the first person that user has been matched with and {1} is the name of the user</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
   </data>
   <data name="OptInConfirmation" xml:space="preserve">
     <value>Привет! Без тебя было скучно, но мы рады, что ты вернулся! Желаем приятных и интересных знакомств :)</value>
@@ -214,5 +247,8 @@
   <data name="WelcomeTourTitle" xml:space="preserve">
     <value>Тур</value>
     <comment>This is the title of the tour for the Icebreaker Bot</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
 </root>

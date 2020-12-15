@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
@@ -159,6 +160,34 @@ namespace Icebreaker.Helpers.Db
             await this.documentClient.UpsertDocumentAsync(this.usersCollection.SelfLink, userInfo);
         }
 
+
+        /// <summary>
+        /// Save userMatchInfo
+        /// </summary>
+        /// <returns>Tracking task</returns>
+        public async Task SaveUserMatchInfoAsync(string tenantId, string senderEmail, string senderName, string receiverEmail, string receiverName)
+        {
+            await this.EnsureInitializedAsync();
+
+            var userInfo = new UserMatchInfo()
+            {
+                TenantId = tenantId,
+                SenderEmail = senderEmail,
+                SenderGivenName = senderName,
+                RecipientEmail = receiverEmail,
+                RecipientGivenName = receiverName,
+                Created = DateTime.Now.ToUniversalTime()
+            };
+            await this.documentClient.UpsertDocumentAsync(this.usersMatchInfoCollection.SelfLink, userInfo);
+        }
+
+        public async Task<List<UserMatchInfo>> UserMatchInfoSearchByDate(DateTime time)
+        {
+            var query = documentClient.CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink);
+            var result = query.Where(p => p.Created > time).ToList();
+            return result;
+        }
+
         /// <summary>
         /// Initializes the database connection.
         /// </summary>
@@ -222,7 +251,7 @@ namespace Icebreaker.Helpers.Db
             };
             userMathInfoCollectionDefinition.PartitionKey.Paths.Add("/id");
             this.usersMatchInfoCollection = await this.documentClient.CreateDocumentCollectionIfNotExistsAsync(this.database.SelfLink, userMathInfoCollectionDefinition, useSharedOffer ? null : requestOptions);
-            
+
             this.telemetryClient.TrackTrace("Data store initialized");
         }
 

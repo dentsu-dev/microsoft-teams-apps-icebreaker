@@ -4,6 +4,8 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using Microsoft.Bot.Connector.Teams;
+
 namespace Icebreaker
 {
     using System;
@@ -70,7 +72,6 @@ namespace Icebreaker
             {
                 var senderAadId = activity.From.Properties["aadObjectId"].ToString();
                 var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
-
                 if (string.Equals(activity.Text, "optout", StringComparison.InvariantCultureIgnoreCase))
                 {
                     // User opted out
@@ -140,6 +141,85 @@ namespace Icebreaker
                     };
 
                     await connectorClient.Conversations.ReplyToActivityAsync(optInReply);
+                }
+                else if (string.Equals(activity.Text, "feedbackYes", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var reply = activity.CreateReply();
+                    reply.Attachments = new List<Attachment>
+                    {
+                        new HeroCard()
+                        {
+                            Text = Resources.FeedBackAnswerText,
+                            Buttons = new List<CardAction>()
+                            {
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerVeryGood,
+                                    DisplayText = Resources.FeedBackAnswerVeryGood,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbackverygood"
+                                },
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerGood,
+                                    DisplayText = Resources.FeedBackAnswerGood,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbackgood"
+                                },
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerNormal,
+                                    DisplayText = Resources.FeedBackAnswerNormal,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbacknormal"
+                                },
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerBad,
+                                    DisplayText = Resources.FeedBackAnswerBad,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbackbad"
+                                }
+                            }
+                        }.ToAttachment(),
+                    };
+                    await connectorClient.Conversations.ReplyToActivityAsync(reply);
+                }
+                else if (string.Equals(activity.Text, "feedbackNo", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var reply = activity.CreateReply();
+                    reply.Attachments = new List<Attachment>
+                    {
+                        new HeroCard()
+                        {
+                            Text = Resources.FeedBackAnswerWhyNotText,
+                            Buttons = new List<CardAction>()
+                            {
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerNoResponse,
+                                    DisplayText = Resources.FeedBackAnswerNoResponse,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbacknoresponse"
+                                },
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerCanceled,
+                                    DisplayText = Resources.FeedBackAnswerCanceled,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbackcanceled"
+                                },
+                                new CardAction()
+                                {
+                                    Title = Resources.FeedBackAnswerNoGoodTime,
+                                    DisplayText = Resources.FeedBackAnswerNoGoodTime,
+                                    Type = ActionTypes.MessageBack,
+                                    Text = "feedbacknogoodtime"
+                                }
+                            }
+                        }.ToAttachment(),
+                    };
+                    await connectorClient.Conversations.ReplyToActivityAsync(reply);
                 }
                 else
                 {

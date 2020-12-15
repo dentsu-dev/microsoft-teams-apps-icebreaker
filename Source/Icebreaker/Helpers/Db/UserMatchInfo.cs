@@ -1,16 +1,11 @@
-﻿using Microsoft.Azure.Documents;
+﻿using System;
+using Microsoft.Azure.Documents;
 using Newtonsoft.Json;
 
 namespace Icebreaker.Helpers.Db
 {
     public class UserMatchInfo : Document
     {
-        /// <summary>
-        /// Identicator to MsTeamUserId
-        /// </summary>
-        [JsonProperty("userId")]
-        public string UserId { get; set; }
-
         /// <summary>
         /// Gets or sets the tenant id
         /// </summary>
@@ -24,7 +19,7 @@ namespace Icebreaker.Helpers.Db
         public string ServiceUrl { get; set; }
 
         [JsonProperty("created")]
-        public string Created { get; set; }
+        public DateTime Created { get; set; }
 
         [JsonProperty("senderGivenName")]
         public string SenderGivenName { get; set; }

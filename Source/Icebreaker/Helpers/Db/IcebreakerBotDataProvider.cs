@@ -183,8 +183,12 @@ namespace Icebreaker.Helpers.Db
 
         public async Task<List<UserMatchInfo>> UserMatchInfoSearchByDate(DateTime time)
         {
-            var query = documentClient.CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink);
-            var result = query.Where(p => p.Created > time).ToList();
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<UserMatchInfo> queryable = documentClient
+                .CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink, option)
+                .Where(p => p.Created > time);
+
+            var result = queryable.ToList();
             return result;
         }
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Hosting;
+using Icebreaker.Components;
 using Icebreaker.Properties;
 using Microsoft.Bot.Connector.Teams.Models;
 
@@ -32,7 +33,9 @@ namespace Icebreaker.Helpers.AdaptiveCards
             {
                 { "mainMessageText", matchUpCardMatchedText },
                 { "yesButtonText", Resources.Yes },
-                { "notButtonText", Resources.No }
+                { "notButtonText", Resources.No },
+                { "yesTextName", ActivityNames.FeedbackYes},
+                { "noTextName", ActivityNames.FeedbackNo}
             };
 
             var cardBody = CardTemplate;

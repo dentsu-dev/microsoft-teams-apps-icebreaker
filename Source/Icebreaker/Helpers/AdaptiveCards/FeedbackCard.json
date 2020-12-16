@@ -23,7 +23,7 @@
         "msteams": {
           "type": "messageBack",
           "displayText": "%yesButtonText%",
-          "text": "feedbackYes"
+          "text": "%yesTextName%"
         }
       }
     },
@@ -34,7 +34,7 @@
         "msteams": {
           "type": "messageBack",
           "displayText": "%notButtonText%",
-          "text": "feedbackNo"
+          "text": "%noTextName%"
         }
       }
     }

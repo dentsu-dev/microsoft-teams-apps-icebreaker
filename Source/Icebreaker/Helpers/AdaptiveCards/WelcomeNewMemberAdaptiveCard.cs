@@ -4,6 +4,8 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using Icebreaker.Components;
+
 namespace Icebreaker.Helpers.AdaptiveCards
 {
     using System;
@@ -75,7 +77,8 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 { "pauseMatchesText", pauseMatchesText },
                 { "tourUrl", tourUrl },
                 { "salutationText", salutationText },
-                { "tourButtonText", tourButtonText }
+                { "tourButtonText", tourButtonText },
+                { "optoutTextName", ActivityNames.Optout}
             };
 
             var cardBody = CardTemplate;

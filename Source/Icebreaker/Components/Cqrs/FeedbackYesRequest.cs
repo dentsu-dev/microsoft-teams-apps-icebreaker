@@ -7,9 +7,8 @@ using Microsoft.Bot.Connector;
 
 namespace Icebreaker.Components.Cqrs
 {
-    public class IncomingMessageActivityRequest : IRequest
+    public class FeedbackYesRequest : IRequest<Activity>
     {
-        public ConnectorClient connectorClient { get; set; } 
         public Activity Activity { get; set; }
     }
 }

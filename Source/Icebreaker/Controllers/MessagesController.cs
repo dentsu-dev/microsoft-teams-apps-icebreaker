@@ -4,7 +4,9 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using Icebreaker.Components;
 using Icebreaker.Components.Cqrs;
+using Icebreaker.Helpers;
 using MediatR;
 using Microsoft.Bot.Connector.Teams;
 
@@ -74,101 +76,33 @@ namespace Icebreaker
         {
             try
             {
-                var senderAadId = activity.From.Properties["aadObjectId"].ToString();
-                var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
-                if (string.Equals(activity.Text, "optout", StringComparison.InvariantCultureIgnoreCase))
+                telemetryClient.TrackTrace($"search handler for activity : {activity.Text}");
+
+                Activity reply = null;
+                if (activity.Is(ActivityNames.Optout))
                 {
-                    await _mediator.Send(new OptOutRequest {Activity = activity, connectorClient = connectorClient });
+                    reply = await _mediator.Send(new OptOutRequest {Activity = activity });
                 }
-                else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase))
+                else if (activity.Is(ActivityNames.Optin))
                 {
-                    await _mediator.Send(new OptInRequest { Activity = activity, connectorClient = connectorClient });
+                    reply = await _mediator.Send(new OptInRequest { Activity = activity });
                 }
-                else if (string.Equals(activity.Text, "feedbackYes", StringComparison.InvariantCultureIgnoreCase))
+                else if (activity.Is(ActivityNames.FeedbackYes))
                 {
-                    var reply = activity.CreateReply();
-                    reply.Attachments = new List<Attachment>
-                    {
-                        new HeroCard()
-                        {
-                            Text = Resources.FeedBackAnswerText,
-                            Buttons = new List<CardAction>()
-                            {
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerVeryGood,
-                                    DisplayText = Resources.FeedBackAnswerVeryGood,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbackverygood"
-                                },
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerGood,
-                                    DisplayText = Resources.FeedBackAnswerGood,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbackgood"
-                                },
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerNormal,
-                                    DisplayText = Resources.FeedBackAnswerNormal,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbacknormal"
-                                },
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerBad,
-                                    DisplayText = Resources.FeedBackAnswerBad,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbackbad"
-                                }
-                            }
-                        }.ToAttachment(),
-                    };
-                    await connectorClient.Conversations.ReplyToActivityAsync(reply);
+                    reply = await _mediator.Send(new FeedbackYesRequest { Activity = activity });
                 }
-                else if (string.Equals(activity.Text, "feedbackNo", StringComparison.InvariantCultureIgnoreCase))
+                else if (activity.Is(ActivityNames.FeedbackNo))
                 {
-                    var reply = activity.CreateReply();
-                    reply.Attachments = new List<Attachment>
-                    {
-                        new HeroCard()
-                        {
-                            Text = Resources.FeedBackAnswerWhyNotText,
-                            Buttons = new List<CardAction>()
-                            {
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerNoResponse,
-                                    DisplayText = Resources.FeedBackAnswerNoResponse,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbacknoresponse"
-                                },
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerCanceled,
-                                    DisplayText = Resources.FeedBackAnswerCanceled,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbackcanceled"
-                                },
-                                new CardAction()
-                                {
-                                    Title = Resources.FeedBackAnswerNoGoodTime,
-                                    DisplayText = Resources.FeedBackAnswerNoGoodTime,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "feedbacknogoodtime"
-                                }
-                            }
-                        }.ToAttachment(),
-                    };
-                    await connectorClient.Conversations.ReplyToActivityAsync(reply);
+                    reply = await _mediator.Send(new FeedbackNoRequest { Activity = activity });
                 }
                 else
                 {
-                    // Unknown input
-                    this.telemetryClient.TrackTrace($"Cannot process the following: {activity.Text}");
-                    var replyActivity = activity.CreateReply();
-                    await this.bot.SendUnrecognizedInputMessage(connectorClient, replyActivity);
+                    reply = await _mediator.Send(new UnknownRequest {Activity = activity});
+                }
+
+                if (reply != null)
+                {
+                    await connectorClient.Conversations.ReplyToActivityAsync(reply);
                 }
             }
             catch (Exception ex)

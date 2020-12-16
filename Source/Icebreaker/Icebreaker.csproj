@@ -220,17 +220,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Components\Cqrs\IncomingMessageActivityRequest.cs" />
+    <Compile Include="Components\ActivityNames.cs" />
+    <Compile Include="Components\Cqrs\FeedbackNoRequest.cs" />
+    <Compile Include="Components\Cqrs\FeedbackNoRequestHandler.cs" />
+    <Compile Include="Components\Cqrs\FeedbackYesRequest.cs" />
+    <Compile Include="Components\Cqrs\FeedbackYesRequestHandler.cs" />
     <Compile Include="Components\Cqrs\OptInRequest.cs" />
     <Compile Include="Components\Cqrs\OptInRequestHander.cs" />
     <Compile Include="Components\Cqrs\OptOutRequest.cs" />
     <Compile Include="Components\Cqrs\OptOutRequestHandler.cs" />
+    <Compile Include="Components\Cqrs\UnknownRequest.cs" />
+    <Compile Include="Components\Cqrs\UnknownRequestHanlder.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\ProcessNowController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\ActivityExt.cs" />
     <Compile Include="Helpers\AdaptiveCards\FeedbackCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\PairUpNotificationAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\UnrecognizedInputAdaptiveCard.cs" />
@@ -284,9 +291,6 @@
   <PropertyGroup>
     <EnableMSDeployAppOffline>true</EnableMSDeployAppOffline>
   </PropertyGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\stylecop.json" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />

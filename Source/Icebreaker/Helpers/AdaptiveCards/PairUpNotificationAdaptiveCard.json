@@ -68,7 +68,7 @@
         "msteams": {
           "type": "messageBack",
           "displayText": "%pauseMatchesButtonText%",
-          "text": "optout"
+          "text": "%optoutTextName%"
         }
       }
     }

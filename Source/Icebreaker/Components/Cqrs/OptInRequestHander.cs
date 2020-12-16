@@ -12,7 +12,7 @@ using Microsoft.Bot.Connector.Teams.Models;
 
 namespace Icebreaker.Components.Cqrs
 {
-    public class OptInRequestHander : IRequestHandler<OptInRequest>
+    public class OptInRequestHander : IRequestHandler<OptInRequest, Activity>
     {
         private readonly TelemetryClient _telemetryClient;
         private readonly IcebreakerBot _bot;
@@ -23,10 +23,9 @@ namespace Icebreaker.Components.Cqrs
             _bot = bot;
         }
 
-        public async Task<Unit> Handle(OptInRequest request, CancellationToken cancellationToken)
+        public async Task<Activity> Handle(OptInRequest request, CancellationToken cancellationToken)
         {
             var activity = request.Activity;
-            var connectorClient = request.connectorClient;
 
             var senderAadId = activity.From.Properties["aadObjectId"].ToString();
             var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
@@ -36,8 +35,8 @@ namespace Icebreaker.Components.Cqrs
 
             var properties = new Dictionary<string, string>
             {
-                { "UserAadId", senderAadId },
-                { "OptInStatus", "true" },
+                {"UserAadId", senderAadId},
+                {"OptInStatus", "true"},
             };
             _telemetryClient.TrackEvent("UserOptInStatusSet", properties);
 
@@ -56,15 +55,12 @@ namespace Icebreaker.Components.Cqrs
                             Title = Resources.PausePairingsButtonText,
                             DisplayText = Resources.PausePairingsButtonText,
                             Type = ActionTypes.MessageBack,
-                            Text = "optout"
+                            Text = ActivityNames.Optout
                         }
                     }
                 }.ToAttachment(),
             };
-
-            await connectorClient.Conversations.ReplyToActivityAsync(optInReply,cancellationToken);
-
-            return Unit.Value;
+            return optInReply;
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Bot.Connector;
 
 namespace Icebreaker.Components.Cqrs
 {
-    public class OptInRequest : IRequest<Activity>
+    public class FeedbackNoRequest : IRequest<Activity>
     {
         public Activity Activity { get; set; }
     }

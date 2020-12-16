@@ -6,6 +6,7 @@
 
 using System.Net;
 using System.Security.Policy;
+using Icebreaker.Components;
 
 namespace Icebreaker.Helpers.AdaptiveCards
 {
@@ -79,7 +80,8 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 { "personUpn", recipientUpn },
                 { "viewProfileText", viewProfileText },
                 { "personEmail", recipientEmailEncode },
-                { "messageInit", messageInit }
+                { "messageInit", messageInit },
+                { "optoutTextName", ActivityNames.Optout}
             };
 
             var cardBody = CardTemplate;

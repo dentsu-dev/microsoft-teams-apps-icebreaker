@@ -1,25 +1,26 @@
 ﻿//----------------------------------------------------------------------------------------------
-// <copyright file="TeamInstallInfo.cs" company="Microsoft">
+// <copyright file="UserInfo.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
 using Microsoft.Azure.Documents;
 using Newtonsoft.Json;
 
-namespace Icebreaker.Helpers.Db
+namespace Icebreaker.Db.Entities
 {
     /// <summary>
-    /// Represents information about a team to which the Icebreaker app was installed
+    /// Represents a user
     /// </summary>
-    public class TeamInstallInfo : Document
+    public class UserInfo : Document
     {
         /// <summary>
-        /// Gets or sets the team id.
+        /// Gets or sets the user's id in Teams (29:xxx).
         /// This is also the <see cref="Resource.Id"/>.
         /// </summary>
         [JsonIgnore]
-        public string TeamId
+        public string UserId
         {
             get { return this.Id; }
             set { this.Id = value; }
@@ -38,15 +39,15 @@ namespace Icebreaker.Helpers.Db
         public string ServiceUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the person that installed the bot to the team
+        /// Gets or sets a value indicating whether the user is opted in to pairups
         /// </summary>
-        [JsonProperty("installerName")]
-        public string InstallerName { get; set; }
+        [JsonProperty("optedIn")]
+        public bool OptedIn { get; set; }
 
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            return $"Team - Id = {this.TeamId}, TenantId = {this.TenantId}, ServiceUrl = {this.ServiceUrl}, Installer = {this.InstallerName}";
-        }
+        /// <summary>
+        /// Gets or sets a list of recent pairups
+        /// </summary>
+        [JsonProperty("recentPairups")]
+        public List<UserInfo> RecentPairUps { get; set; }
     }
 }

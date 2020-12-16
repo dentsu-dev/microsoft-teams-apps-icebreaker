@@ -2,7 +2,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
-using Icebreaker.Helpers.Db;
+using Icebreaker.Db;
 
 namespace Icebreaker
 {

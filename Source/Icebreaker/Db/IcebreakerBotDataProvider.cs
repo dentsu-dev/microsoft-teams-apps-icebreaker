@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Icebreaker.Db.Entities;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.Azure;
@@ -15,7 +16,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 
-namespace Icebreaker.Helpers.Db
+namespace Icebreaker.Db
 {
     /// <summary>
     /// Data provider routines
@@ -49,7 +50,7 @@ namespace Icebreaker.Helpers.Db
         /// <param name="team">The team installation info</param>
         /// <param name="installed">Value that indicates if bot is installed</param>
         /// <returns>Tracking task</returns>
-        public async Task UpdateTeamInstallStatusAsync(TeamInstallInfo team, bool installed)
+        public async Task TeamInstallUpdate(TeamInstallInfo team, bool installed)
         {
             await this.EnsureInitializedAsync();
 
@@ -68,7 +69,7 @@ namespace Icebreaker.Helpers.Db
         /// Get the list of teams to which the app was installed.
         /// </summary>
         /// <returns>List of installed teams</returns>
-        public async Task<IList<TeamInstallInfo>> GetInstalledTeamsAsync()
+        public async Task<IList<TeamInstallInfo>> InstalledTeamsGet()
         {
             await this.EnsureInitializedAsync();
 
@@ -100,7 +101,7 @@ namespace Icebreaker.Helpers.Db
         /// </summary>
         /// <param name="teamId">The team id</param>
         /// <returns>Team that the bot is installed to</returns>
-        public async Task<TeamInstallInfo> GetInstalledTeamAsync(string teamId)
+        public async Task<TeamInstallInfo> InstalledTeamGet(string teamId)
         {
             await this.EnsureInitializedAsync();
 
@@ -122,7 +123,7 @@ namespace Icebreaker.Helpers.Db
         /// </summary>
         /// <param name="userId">User id</param>
         /// <returns>User information</returns>
-        public async Task<UserInfo> GetUserInfoAsync(string userId)
+        public async Task<UserInfo> UserInfoGet(string userId)
         {
             await this.EnsureInitializedAsync();
 
@@ -146,7 +147,7 @@ namespace Icebreaker.Helpers.Db
         /// <param name="optedIn">User opt-in status</param>
         /// <param name="serviceUrl">User service URL</param>
         /// <returns>Tracking task</returns>
-        public async Task SetUserInfoAsync(string tenantId, string userId, bool optedIn, string serviceUrl)
+        public async Task UserInfoSet(string tenantId, string userId, bool optedIn, string serviceUrl)
         {
             await this.EnsureInitializedAsync();
 
@@ -165,7 +166,7 @@ namespace Icebreaker.Helpers.Db
         /// Save userMatchInfo
         /// </summary>
         /// <returns>Tracking task</returns>
-        public async Task SaveUserMatchInfoAsync(string tenantId, string senderEmail, string senderName, string receiverEmail, string receiverName)
+        public async Task UserMatchInfoSave(string tenantId, string senderEmail, string senderName, string receiverEmail, string receiverName)
         {
             await this.EnsureInitializedAsync();
 

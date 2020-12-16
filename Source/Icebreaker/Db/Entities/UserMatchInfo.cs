@@ -2,7 +2,7 @@
 using Microsoft.Azure.Documents;
 using Newtonsoft.Json;
 
-namespace Icebreaker.Helpers.Db
+namespace Icebreaker.Db.Entities
 {
     public class UserMatchInfo : Document
     {

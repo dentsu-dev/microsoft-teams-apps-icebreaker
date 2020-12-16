@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Icebreaker.Helpers.AdaptiveCards;
 using MediatR;
 using Microsoft.ApplicationInsights;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
 
-namespace Icebreaker.Components.Cqrs
+namespace Icebreaker.Components.IncomingMsgs
 {
     public class UnknownRequestHandler : IRequestHandler<UnknownRequest, Activity>
     {

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Icebreaker.Properties;
 using MediatR;
 using Microsoft.ApplicationInsights;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Connector.Teams.Models;
 
-namespace Icebreaker.Components.Cqrs
+namespace Icebreaker.Components.IncomingMsgs
 {
     public class FeedbackYesRequestHandler : IRequestHandler<FeedbackYesRequest, Activity>
     {

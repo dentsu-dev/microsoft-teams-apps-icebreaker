@@ -4,7 +4,8 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
-using Icebreaker.Helpers.Db;
+using Icebreaker.Db;
+using Icebreaker.Db.Entities;
 
 namespace Icebreaker
 {
@@ -70,7 +71,7 @@ namespace Icebreaker
 
             try
             {
-                var teams = await this.dataProvider.GetInstalledTeamsAsync();
+                var teams = await this.dataProvider.InstalledTeamsGet();
                 installedTeamsCount = teams.Count;
                 this.telemetryClient.TrackTrace($"Generating pairs for {installedTeamsCount} teams");
 
@@ -125,7 +126,7 @@ namespace Icebreaker
         /// <returns>The team that the bot has been installed to</returns>
         public Task<TeamInstallInfo> GetInstalledTeam(string teamId)
         {
-            return this.dataProvider.GetInstalledTeamAsync(teamId);
+            return this.dataProvider.InstalledTeamGet(teamId);
         }
 
         /// <summary>
@@ -199,7 +200,7 @@ namespace Icebreaker
                 TenantId = tenantId,
                 InstallerName = botInstaller
             };
-            return this.dataProvider.UpdateTeamInstallStatusAsync(teamInstallInfo, true);
+            return this.dataProvider.TeamInstallUpdate(teamInstallInfo, true);
         }
 
         /// <summary>
@@ -216,7 +217,7 @@ namespace Icebreaker
                 TeamId = teamId,
                 TenantId = tenantId,
             };
-            return this.dataProvider.UpdateTeamInstallStatusAsync(teamInstallInfo, false);
+            return this.dataProvider.TeamInstallUpdate(teamInstallInfo, false);
         }
         /// <summary>
         /// Opt out the user from further pairups
@@ -227,7 +228,7 @@ namespace Icebreaker
         /// <returns>Tracking task</returns>
         public Task OptOutUser(string tenantId, string userId, string serviceUrl)
         {
-            return this.dataProvider.SetUserInfoAsync(tenantId, userId, false, serviceUrl);
+            return this.dataProvider.UserInfoSet(tenantId, userId, false, serviceUrl);
         }
 
         /// <summary>
@@ -239,7 +240,7 @@ namespace Icebreaker
         /// <returns>Tracking task</returns>
         public Task OptInUser(string tenantId, string userId, string serviceUrl)
         {
-            return this.dataProvider.SetUserInfoAsync(tenantId, userId, true, serviceUrl);
+            return this.dataProvider.UserInfoSet(tenantId, userId, true, serviceUrl);
         }
 
         /// <summary>
@@ -256,7 +257,7 @@ namespace Icebreaker
 
             try
             {
-                var teams = await this.dataProvider.GetInstalledTeamsAsync();
+                var teams = await this.dataProvider.InstalledTeamsGet();
                 installedTeamsCount = teams.Count;
                 this.telemetryClient.TrackTrace($"Generating pairs for {installedTeamsCount} teams");
 
@@ -362,7 +363,7 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson1, teamsPerson1, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.SaveUserMatchInfoAsync(tenantId, teamsPerson1.Email, teamsPerson1GivenName,
+                await dataProvider.UserMatchInfoSave(tenantId, teamsPerson1.Email, teamsPerson1GivenName,
                     teamsPerson2.Email,
                     teamsPerson2GivenName);
             }
@@ -373,7 +374,7 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson2, teamsPerson2, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.SaveUserMatchInfoAsync(tenantId, teamsPerson2.Email, teamsPerson2GivenName,
+                await dataProvider.UserMatchInfoSave(tenantId, teamsPerson2.Email, teamsPerson2GivenName,
                     teamsPerson1.Email,
                     teamsPerson1GivenName);
             }
@@ -473,7 +474,7 @@ namespace Icebreaker
             var members = await connectorClient.Conversations.GetConversationMembersAsync(teamInfo.TeamId);
             this.telemetryClient.TrackTrace($"Found {members.Count} in team {teamInfo.TeamId}");
 
-            var tasks = members.Select(m => this.dataProvider.GetUserInfoAsync(m.AsTeamsChannelAccount().ObjectId));
+            var tasks = members.Select(m => this.dataProvider.UserInfoGet(m.AsTeamsChannelAccount().ObjectId));
             var results = await Task.WhenAll(tasks);
 
             return members

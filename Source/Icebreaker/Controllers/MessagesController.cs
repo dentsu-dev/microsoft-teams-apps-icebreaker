@@ -5,7 +5,7 @@
 //----------------------------------------------------------------------------------------------
 
 using Icebreaker.Components;
-using Icebreaker.Components.Cqrs;
+using Icebreaker.Components.IncomingMsgs;
 using Icebreaker.Helpers;
 using MediatR;
 using Microsoft.Bot.Connector.Teams;
@@ -207,6 +207,7 @@ namespace Icebreaker
             {
                 { "ActivityId", activity.Id },
                 { "ActivityType", activity.Type },
+                { "ActivityText", activity.Text },
                 { "UserAadObjectId", fromObjectId },
                 {
                     "ConversationType",

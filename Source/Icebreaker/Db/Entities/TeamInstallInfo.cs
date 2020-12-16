@@ -1,26 +1,25 @@
 ﻿//----------------------------------------------------------------------------------------------
-// <copyright file="UserInfo.cs" company="Microsoft">
+// <copyright file="TeamInstallInfo.cs" company="Microsoft">
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
 using Microsoft.Azure.Documents;
 using Newtonsoft.Json;
 
-namespace Icebreaker.Helpers.Db
+namespace Icebreaker.Db.Entities
 {
     /// <summary>
-    /// Represents a user
+    /// Represents information about a team to which the Icebreaker app was installed
     /// </summary>
-    public class UserInfo : Document
+    public class TeamInstallInfo : Document
     {
         /// <summary>
-        /// Gets or sets the user's id in Teams (29:xxx).
+        /// Gets or sets the team id.
         /// This is also the <see cref="Resource.Id"/>.
         /// </summary>
         [JsonIgnore]
-        public string UserId
+        public string TeamId
         {
             get { return this.Id; }
             set { this.Id = value; }
@@ -39,15 +38,15 @@ namespace Icebreaker.Helpers.Db
         public string ServiceUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the user is opted in to pairups
+        /// Gets or sets the name of the person that installed the bot to the team
         /// </summary>
-        [JsonProperty("optedIn")]
-        public bool OptedIn { get; set; }
+        [JsonProperty("installerName")]
+        public string InstallerName { get; set; }
 
-        /// <summary>
-        /// Gets or sets a list of recent pairups
-        /// </summary>
-        [JsonProperty("recentPairups")]
-        public List<UserInfo> RecentPairUps { get; set; }
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return $"Team - Id = {this.TeamId}, TenantId = {this.TenantId}, ServiceUrl = {this.ServiceUrl}, Installer = {this.InstallerName}";
+        }
     }
 }

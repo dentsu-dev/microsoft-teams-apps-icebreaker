@@ -296,16 +296,18 @@ namespace Icebreaker
                         var startDate = DateTime.UtcNow.AddDays(-5);
                         var dbMatchers = await dataProvider.UserMatchInfoSearchByDate(startDate);
 
-                        foreach (var matchInfo in dbMatchers)
+                        foreach (var userInfo in allUsersList)
                         {
-                            var userInfo = allUsersList.FirstOrDefault(p => p.ChannelAccount.Email == matchInfo.SenderEmail);
-                            if (userInfo != null)
+                            var dbMatch = dbMatchers
+                                .Where(p => p.SenderEmail == userInfo.ChannelAccount.Email)
+                                .OrderByDescending(p => p.Created)
+                                .FirstOrDefault();
+                            if (dbMatch != null)
                             {
-                                var card = FeedbackCard.GetCard(matchInfo.RecipientGivenName);
+                                var card = FeedbackCard.GetCard(dbMatch.RecipientGivenName);
                                 await NotifyUser(connectorClient, card, userInfo.User, team.TenantId);
                             }
                         }
-
                     }
                     catch (Exception ex)
                     {

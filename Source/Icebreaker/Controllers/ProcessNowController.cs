@@ -65,7 +65,7 @@ namespace Icebreaker.Controllers
         /// </summary>
         /// <param name="key">API key</param>
         /// <returns>Success (1) or failure (-1) code</returns>
-        [Route("api/processFeedback/{key}")]
+        [Route("api/processnow/feedback/{key}")]
         public async Task<IHttpActionResult> GetFeedback([FromUri] string key)
         {
             var isKeyMatch = object.Equals(key, CloudConfigurationManager.GetSetting("Key"));

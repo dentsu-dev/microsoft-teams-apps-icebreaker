@@ -4,6 +4,8 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using Icebreaker.Components.Cqrs;
+using MediatR;
 using Microsoft.Bot.Connector.Teams;
 
 namespace Icebreaker
@@ -29,16 +31,18 @@ namespace Icebreaker
     {
         private readonly IcebreakerBot bot;
         private readonly TelemetryClient telemetryClient;
+        private readonly IMediator _mediator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessagesController"/> class.
         /// </summary>
         /// <param name="bot">The Icebreaker bot instance</param>
         /// <param name="telemetryClient">The telemetry client instance</param>
-        public MessagesController(IcebreakerBot bot, TelemetryClient telemetryClient)
+        public MessagesController(IcebreakerBot bot, TelemetryClient telemetryClient, IMediator mediator)
         {
             this.bot = bot;
             this.telemetryClient = telemetryClient;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -74,73 +78,11 @@ namespace Icebreaker
                 var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
                 if (string.Equals(activity.Text, "optout", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    // User opted out
-                    this.telemetryClient.TrackTrace($"User {senderAadId} opted out");
-
-                    var properties = new Dictionary<string, string>
-                    {
-                        { "UserAadId", senderAadId },
-                        { "OptInStatus", "false" },
-                    };
-                    this.telemetryClient.TrackEvent("UserOptInStausSet", properties);
-
-                    await this.bot.OptOutUser(tenantId, senderAadId, activity.ServiceUrl);
-
-                    var optOutReply = activity.CreateReply();
-                    optOutReply.Attachments = new List<Attachment>
-                    {
-                        new HeroCard()
-                        {
-                            Text = Resources.OptOutConfirmation,
-                            Buttons = new List<CardAction>()
-                            {
-                                new CardAction()
-                                {
-                                    Title = Resources.ResumePairingsButtonText,
-                                    DisplayText = Resources.ResumePairingsButtonText,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "optin"
-                                }
-                            }
-                        }.ToAttachment(),
-                    };
-
-                    await connectorClient.Conversations.ReplyToActivityAsync(optOutReply);
+                    await _mediator.Send(new OptOutRequest {Activity = activity, connectorClient = connectorClient });
                 }
                 else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    // User opted in
-                    this.telemetryClient.TrackTrace($"User {senderAadId} opted in");
-
-                    var properties = new Dictionary<string, string>
-                    {
-                        { "UserAadId", senderAadId },
-                        { "OptInStatus", "true" },
-                    };
-                    this.telemetryClient.TrackEvent("UserOptInStatusSet", properties);
-
-                    await this.bot.OptInUser(tenantId, senderAadId, activity.ServiceUrl);
-
-                    var optInReply = activity.CreateReply();
-                    optInReply.Attachments = new List<Attachment>
-                    {
-                        new HeroCard()
-                        {
-                            Text = Resources.OptInConfirmation,
-                            Buttons = new List<CardAction>()
-                            {
-                                new CardAction()
-                                {
-                                    Title = Resources.PausePairingsButtonText,
-                                    DisplayText = Resources.PausePairingsButtonText,
-                                    Type = ActionTypes.MessageBack,
-                                    Text = "optout"
-                                }
-                            }
-                        }.ToAttachment(),
-                    };
-
-                    await connectorClient.Conversations.ReplyToActivityAsync(optInReply);
+                    await _mediator.Send(new OptInRequest { Activity = activity, connectorClient = connectorClient });
                 }
                 else if (string.Equals(activity.Text, "feedbackYes", StringComparison.InvariantCultureIgnoreCase))
                 {

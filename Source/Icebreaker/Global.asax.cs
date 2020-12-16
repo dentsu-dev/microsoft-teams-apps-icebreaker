@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft. All rights reserved.
 // </copyright>
 
+using MediatR.Extensions.Autofac.DependencyInjection;
+
 namespace Icebreaker
 {
     using System.Reflection;
@@ -21,6 +23,8 @@ namespace Icebreaker
            Conversation.UpdateContainer(
                builder =>
                {
+                   builder.RegisterMediatR(typeof(IcebreakerBot).Assembly);
+
                    builder.RegisterModule(new IcebreakerModule());
 
                    builder.RegisterApiControllers(Assembly.GetExecutingAssembly());

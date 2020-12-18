@@ -196,7 +196,7 @@ namespace Icebreaker.Db
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
                 .Where(p => p.UserEmail == userEmail);
 
-            var entity = queryable.FirstOrDefault();
+            var entity = queryable.ToList().FirstOrDefault();
             if (entity != null)
             {
                 entity.Message = message;
@@ -222,7 +222,7 @@ namespace Icebreaker.Db
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
                 .Where(p => p.UserEmail == userEmail);
 
-            var entity = queryable.FirstOrDefault();
+            var entity = queryable.ToList().FirstOrDefault();
             return entity;
         }
 
@@ -244,7 +244,7 @@ namespace Icebreaker.Db
                 .CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink, option)
                 .Where(p => p.Created > time && p.SenderEmail == userEmail);
 
-            var result = queryable.FirstOrDefault();
+            var result = queryable.ToList().FirstOrDefault();
             return result;
         }
 

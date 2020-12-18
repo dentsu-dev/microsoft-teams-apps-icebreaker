@@ -29,8 +29,8 @@ namespace Icebreaker.Components.IncomingMsgs
         {
             var activity = request.Activity;
 
-            var senderAadId = activity.From.Properties["aadObjectId"].ToString();
-            var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
+            //var senderAadId = activity.From.Properties["aadObjectId"].ToString();
+            //var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
 
             var reply = activity.CreateReply();
             reply.Attachments = new List<Attachment>

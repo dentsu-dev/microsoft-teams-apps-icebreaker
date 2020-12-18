@@ -61,6 +61,15 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Был бы рад пообщаться с вами побольше, но дела заждались :) Увидимся на следующей неделе!.
+        /// </summary>
+        internal static string ByeReplyText {
+            get {
+                return ResourceManager.GetString("ByeReplyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поприветствовать {0}.
         /// </summary>
         internal static string ChatWithMatchButtonText {
@@ -79,83 +88,173 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не понравилось.
+        ///   Looks up a localized string similar to Что-то не сложилось. Поделитесь развернутым комментарием?.
         /// </summary>
-        internal static string FeedBackAnswerBad {
+        internal static string FeedBackNoAnotherReplyText {
             get {
-                return ResourceManager.GetString("FeedBackAnswerBad", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoAnotherReplyText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Я передумал.
+        ///   Looks up a localized string similar to Другое.
         /// </summary>
-        internal static string FeedBackAnswerCanceled {
+        internal static string FeedBackNoAnswerAnother {
             get {
-                return ResourceManager.GetString("FeedBackAnswerCanceled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Хорошо.
-        /// </summary>
-        internal static string FeedBackAnswerGood {
-            get {
-                return ResourceManager.GetString("FeedBackAnswerGood", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoAnswerAnother", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Не удалось выбрать свободное время.
         /// </summary>
-        internal static string FeedBackAnswerNoGoodTime {
+        internal static string FeedBackNoAnswerNoGoodTime {
             get {
-                return ResourceManager.GetString("FeedBackAnswerNoGoodTime", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoAnswerNoGoodTime", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Собеседник не ответил.
         /// </summary>
-        internal static string FeedBackAnswerNoResponse {
+        internal static string FeedBackNoAnswerNoResponse {
             get {
-                return ResourceManager.GetString("FeedBackAnswerNoResponse", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoAnswerNoResponse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Нормально.
+        ///   Looks up a localized string similar to Как грустно это слышать. Раскажете, почему?.
         /// </summary>
-        internal static string FeedBackAnswerNormal {
+        internal static string FeedBackNoAnswerRequestText {
             get {
-                return ResourceManager.GetString("FeedBackAnswerNormal", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoAnswerRequestText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Как прошла ваша встреча?.
+        ///   Looks up a localized string similar to Такое случается. Поделитесь развернутым комментарием?.
         /// </summary>
-        internal static string FeedBackAnswerText {
+        internal static string FeedBackNoCanceledReplyText {
             get {
-                return ResourceManager.GetString("FeedBackAnswerText", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoCanceledReplyText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Супер.
+        ///   Looks up a localized string similar to Какая досада. Но вы не огорчайтесь, впереди новая неделя и новый интересный собеседник!.
         /// </summary>
-        internal static string FeedBackAnswerVeryGood {
+        internal static string FeedBackNoNoGoodTimeReplyText {
             get {
-                return ResourceManager.GetString("FeedBackAnswerVeryGood", resourceCulture);
+                return ResourceManager.GetString("FeedBackNoNoGoodTimeReplyText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Расскажешь почему?.
+        ///   Looks up a localized string similar to Эх, но вы не огорчайтесь. Впереди новая неделя и новый интересный собеседний!.
         /// </summary>
-        internal static string FeedBackAnswerWhyNotText {
+        internal static string FeedbackNoNoResponseReplyText {
             get {
-                return ResourceManager.GetString("FeedBackAnswerWhyNotText", resourceCulture);
+                return ResourceManager.GetString("FeedbackNoNoResponseReplyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Спасибо за комментарий.
+        /// </summary>
+        internal static string FeedbackReplyAfterCommentText {
+            get {
+                return ResourceManager.GetString("FeedbackReplyAfterCommentText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Так себе.
+        /// </summary>
+        internal static string FeedBackYesAnswerBad {
+            get {
+                return ResourceManager.GetString("FeedBackYesAnswerBad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я передумал.
+        /// </summary>
+        internal static string FeedBackYesAnswerCanceled {
+            get {
+                return ResourceManager.GetString("FeedBackYesAnswerCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Хорошо.
+        /// </summary>
+        internal static string FeedBackYesAnswerGood {
+            get {
+                return ResourceManager.GetString("FeedBackYesAnswerGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Надеюсь, я сделал правильный выбор. И как прошла ваша встреча?.
+        /// </summary>
+        internal static string FeedBackYesAnswerRequestText {
+            get {
+                return ResourceManager.GetString("FeedBackYesAnswerRequestText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я в восторге.
+        /// </summary>
+        internal static string FeedBackYesAnswerVeryGood {
+            get {
+                return ResourceManager.GetString("FeedBackYesAnswerVeryGood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Как грустно это слышать. Поделитесь, почему?.
+        /// </summary>
+        internal static string FeedbackYesBadReplayText {
+            get {
+                return ResourceManager.GetString("FeedbackYesBadReplayText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Здорово! Поделитесь развернутым комментарием?.
+        /// </summary>
+        internal static string FeedBackYesGoodReplyText1 {
+            get {
+                return ResourceManager.GetString("FeedBackYesGoodReplyText1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to А впереди новая неделя и новый интересный собеседник!.
+        /// </summary>
+        internal static string FeedBackYesGoodReplyText2 {
+            get {
+                return ResourceManager.GetString("FeedBackYesGoodReplyText2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ура! Буду счастлив вместе с вами, если поделитесь развернутым комментарием..
+        /// </summary>
+        internal static string FeedbackYesSuperReplyText1 {
+            get {
+                return ResourceManager.GetString("FeedbackYesSuperReplyText1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to А впереди новая неделя и новый интересный собеседеник!.
+        /// </summary>
+        internal static string FeedbackYesSuperReplyText2 {
+            get {
+                return ResourceManager.GetString("FeedbackYesSuperReplyText2", resourceCulture);
             }
         }
         
@@ -268,7 +367,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Удалось ли вам встретиться с {0} на этой неделе?.
+        ///   Looks up a localized string similar to Вот и неделя прошла. {0}, я буду рад получить от вас весточку! Удалось ли вам встретиться с {1}?.
         /// </summary>
         internal static string MeetupFeedBackMsg {
             get {
@@ -354,6 +453,15 @@ namespace Icebreaker.Properties {
         internal static string TakeATourButtonText {
             get {
                 return ResourceManager.GetString("TakeATourButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to К сожалению, не удается обработать ваше сообщение. Для ответа используйте один из предложенных выше  вариантов..
+        /// </summary>
+        internal static string UnknownChooseAnswerText {
+            get {
+                return ResourceManager.GetString("UnknownChooseAnswerText", resourceCulture);
             }
         }
         

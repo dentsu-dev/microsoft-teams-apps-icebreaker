@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Icebreaker.Db;
 using Icebreaker.Properties;
 using MediatR;
 using Microsoft.ApplicationInsights;
 using Microsoft.Bot.Connector;
+using Microsoft.Bot.Connector.Teams;
 using Microsoft.Bot.Connector.Teams.Models;
 
 namespace Icebreaker.Components.IncomingMsgs
@@ -13,11 +16,13 @@ namespace Icebreaker.Components.IncomingMsgs
     {
         private readonly TelemetryClient _telemetryClient;
         private readonly IcebreakerBot _bot;
+        private readonly BotRepository _repository;
 
-        public FeedbackYesRequestHandler(TelemetryClient telemetryClient, IcebreakerBot bot)
+        public FeedbackYesRequestHandler(TelemetryClient telemetryClient, IcebreakerBot bot, BotRepository repository)
         {
             _telemetryClient = telemetryClient;
             _bot = bot;
+            _repository = repository;
         }
 
         public async Task<Activity> Handle(FeedbackYesRequest request, CancellationToken cancellationToken)
@@ -32,40 +37,50 @@ namespace Icebreaker.Components.IncomingMsgs
             {
                 new HeroCard()
                 {
-                    Text = Resources.FeedBackAnswerText,
+                    Text = Resources.FeedBackYesAnswerRequestText,
                     Buttons = new List<CardAction>()
                     {
                         new CardAction()
                         {
-                            Title = Resources.FeedBackAnswerVeryGood,
-                            DisplayText = Resources.FeedBackAnswerVeryGood,
+                            Title = Resources.FeedBackYesAnswerVeryGood,
+                            DisplayText = Resources.FeedBackYesAnswerVeryGood,
                             Type = ActionTypes.MessageBack,
-                            Text = "feedbackverygood"
+                            Text = CardActions.FeedbackYesSuper
                         },
                         new CardAction()
                         {
-                            Title = Resources.FeedBackAnswerGood,
-                            DisplayText = Resources.FeedBackAnswerGood,
+                            Title = Resources.FeedBackYesAnswerGood,
+                            DisplayText = Resources.FeedBackYesAnswerGood,
                             Type = ActionTypes.MessageBack,
-                            Text = "feedbackgood"
+                            Text = CardActions.FeedbackYesGood
                         },
                         new CardAction()
                         {
-                            Title = Resources.FeedBackAnswerNormal,
-                            DisplayText = Resources.FeedBackAnswerNormal,
+                            Title = Resources.FeedBackYesAnswerBad,
+                            DisplayText = Resources.FeedBackYesAnswerBad,
                             Type = ActionTypes.MessageBack,
-                            Text = "feedbacknormal"
-                        },
-                        new CardAction()
-                        {
-                            Title = Resources.FeedBackAnswerBad,
-                            DisplayText = Resources.FeedBackAnswerBad,
-                            Type = ActionTypes.MessageBack,
-                            Text = "feedbackbad"
+                            Text = CardActions.FeedbackYesBad
                         }
                     }
                 }.ToAttachment(),
             };
+
+            var searchDate = DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays);
+            var lastUserMatch =
+                await _repository.UserMatchInfoSearchByDateAndUser(
+                    searchDate,
+                    activity.From.AsTeamsChannelAccount().Email);
+
+            var lastCompanionEmail = string.Empty;
+            if (lastUserMatch != null)
+            {
+                lastCompanionEmail = lastUserMatch.RecipientEmail;
+            }
+
+            await _repository.FeedbackRootCreate(
+                activity.From.AsTeamsChannelAccount().Email,
+                lastCompanionEmail,
+                FbRootTypes.Yes);
 
             return reply;
         }

@@ -25,17 +25,23 @@ namespace Icebreaker.Helpers.AdaptiveCards
             CardTemplate = File.ReadAllText(cardJsonFilePath);
         }
 
-        public static string GetCard(string userName)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName1">Name of user, to who will send bot message</param>
+        /// <param name="userName2">Name of user, with who user1 should meetup</param>
+        /// <returns></returns>
+        public static string GetCard(string userName1, string userName2)
         {
-            var matchUpCardMatchedText = string.Format(Resources.MeetupFeedBackMsg, userName);
+            var matchUpCardMatchedText = string.Format(Resources.MeetupFeedBackMsg, userName1, userName2);
 
             var variablesToValues = new Dictionary<string, string>()
             {
                 { "mainMessageText", matchUpCardMatchedText },
                 { "yesButtonText", Resources.Yes },
                 { "notButtonText", Resources.No },
-                { "yesTextName", ActivityNames.FeedbackYes},
-                { "noTextName", ActivityNames.FeedbackNo}
+                { "yesTextName", CardActions.FeedbackYes},
+                { "noTextName", CardActions.FeedbackNo}
             };
 
             var cardBody = CardTemplate;

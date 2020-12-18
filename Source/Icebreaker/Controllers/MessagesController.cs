@@ -6,6 +6,7 @@
 
 using Icebreaker.Components;
 using Icebreaker.Components.IncomingMsgs;
+using Icebreaker.Db;
 using Icebreaker.Helpers;
 using MediatR;
 using Microsoft.Bot.Connector.Teams;
@@ -34,17 +35,19 @@ namespace Icebreaker
         private readonly IcebreakerBot bot;
         private readonly TelemetryClient telemetryClient;
         private readonly IMediator _mediator;
+        private readonly BotRepository _repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessagesController"/> class.
         /// </summary>
         /// <param name="bot">The Icebreaker bot instance</param>
         /// <param name="telemetryClient">The telemetry client instance</param>
-        public MessagesController(IcebreakerBot bot, TelemetryClient telemetryClient, IMediator mediator)
+        public MessagesController(IcebreakerBot bot, TelemetryClient telemetryClient, IMediator mediator, BotRepository repository)
         {
             this.bot = bot;
             this.telemetryClient = telemetryClient;
             _mediator = mediator;
+            _repository = repository;
         }
 
         /// <summary>
@@ -78,32 +81,7 @@ namespace Icebreaker
             {
                 telemetryClient.TrackTrace($"search handler for activity : {activity.Text}");
 
-                Activity reply = null;
-                if (activity.Is(ActivityNames.Optout))
-                {
-                    reply = await _mediator.Send(new OptOutRequest {Activity = activity });
-                }
-                else if (activity.Is(ActivityNames.Optin))
-                {
-                    reply = await _mediator.Send(new OptInRequest { Activity = activity });
-                }
-                else if (activity.Is(ActivityNames.FeedbackYes))
-                {
-                    reply = await _mediator.Send(new FeedbackYesRequest { Activity = activity });
-                }
-                else if (activity.Is(ActivityNames.FeedbackNo))
-                {
-                    reply = await _mediator.Send(new FeedbackNoRequest { Activity = activity });
-                }
-                else
-                {
-                    reply = await _mediator.Send(new UnknownRequest {Activity = activity});
-                }
-
-                if (reply != null)
-                {
-                    await connectorClient.Conversations.ReplyToActivityAsync(reply);
-                }
+                await _mediator.Send(new HandleMessageRequest{connectorClient = connectorClient, Activity = activity});
             }
             catch (Exception ex)
             {

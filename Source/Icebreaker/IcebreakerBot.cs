@@ -4,6 +4,7 @@
 // </copyright>
 //----------------------------------------------------------------------------------------------
 
+using Icebreaker.Components;
 using Icebreaker.Db;
 using Icebreaker.Db.Entities;
 
@@ -27,7 +28,7 @@ namespace Icebreaker
     /// </summary>
     public class IcebreakerBot
     {
-        private readonly IcebreakerBotDataProvider dataProvider;
+        private readonly BotRepository dataProvider;
         private readonly TelemetryClient telemetryClient;
         private readonly int maxPairUpsPerTeam;
         private readonly string botDisplayName;
@@ -39,7 +40,7 @@ namespace Icebreaker
         /// </summary>
         /// <param name="dataProvider">The data provider to use</param>
         /// <param name="telemetryClient">The telemetry client to use</param>
-        public IcebreakerBot(IcebreakerBotDataProvider dataProvider, TelemetryClient telemetryClient)
+        public IcebreakerBot(BotRepository dataProvider, TelemetryClient telemetryClient)
         {
             this.dataProvider = dataProvider;
             this.telemetryClient = telemetryClient;
@@ -274,7 +275,7 @@ namespace Icebreaker
                         var allUsersList = allUsers.Select(x => new { User = x, ChannelAccount = x.AsTeamsChannelAccount() })
                             .ToList();
 
-                        var startDate = DateTime.UtcNow.AddDays(-5);
+                        var startDate = DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays);
                         var dbMatchers = await dataProvider.UserMatchInfoSearchByDate(startDate);
 
                         foreach (var userInfo in allUsersList)
@@ -285,8 +286,11 @@ namespace Icebreaker
                                 .FirstOrDefault();
                             if (dbMatch != null)
                             {
-                                var card = FeedbackCard.GetCard(dbMatch.RecipientGivenName);
+                                var card = FeedbackCard.GetCard(dbMatch.SenderGivenName, dbMatch.RecipientGivenName);
                                 await NotifyUser(connectorClient, card, userInfo.User, team.TenantId);
+                                await dataProvider.BotLastMessageUpdate(
+                                    userInfo.ChannelAccount.Email,
+                                    BotMessageTypes.Fb);
                             }
                         }
                     }
@@ -356,7 +360,7 @@ namespace Icebreaker
                 : teamsPerson2.GivenName;
 
             var notifiedResults = 0;
-
+           
             // Fill in person2's info in the card for person1
             var cardForPerson1 =
                 PairUpNotificationAdaptiveCard.GetCard(teamName, teamsPerson1, teamsPerson2, this.botDisplayName);
@@ -365,7 +369,8 @@ namespace Icebreaker
                 notifiedResults++;
                 await dataProvider.UserMatchInfoSave(tenantId, teamsPerson1.Email, teamsPerson1GivenName,
                     teamsPerson2.Email,
-                    teamsPerson2GivenName);
+                    teamsPerson2GivenName, connectorClient.BaseUri.ToString());
+                await dataProvider.BotLastMessageUpdate(teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Fill in person1's info in the card for person2
@@ -376,7 +381,8 @@ namespace Icebreaker
                 notifiedResults++;
                 await dataProvider.UserMatchInfoSave(tenantId, teamsPerson2.Email, teamsPerson2GivenName,
                     teamsPerson1.Email,
-                    teamsPerson1GivenName);
+                    teamsPerson1GivenName, connectorClient.BaseUri.ToString());
+                await dataProvider.BotLastMessageUpdate(teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Send notifications and return the number that was successful

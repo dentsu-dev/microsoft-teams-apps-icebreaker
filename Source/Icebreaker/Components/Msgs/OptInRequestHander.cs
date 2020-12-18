@@ -52,7 +52,7 @@ namespace Icebreaker.Components.IncomingMsgs
                             Title = Resources.PausePairingsButtonText,
                             DisplayText = Resources.PausePairingsButtonText,
                             Type = ActionTypes.MessageBack,
-                            Text = ActivityNames.Optout
+                            Text = CardActions.Optout
                         }
                     }
                 }.ToAttachment(),

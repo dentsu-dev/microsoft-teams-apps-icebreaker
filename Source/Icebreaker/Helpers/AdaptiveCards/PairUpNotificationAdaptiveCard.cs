@@ -81,7 +81,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 { "viewProfileText", viewProfileText },
                 { "personEmail", recipientEmailEncode },
                 { "messageInit", messageInit },
-                { "optoutTextName", ActivityNames.Optout}
+                { "optoutTextName", CardActions.Optout}
             };
 
             var cardBody = CardTemplate;

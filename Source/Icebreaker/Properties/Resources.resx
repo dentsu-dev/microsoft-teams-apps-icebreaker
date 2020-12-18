@@ -125,32 +125,62 @@
     <value>Произошла ошибка. Повторите попытку.</value>
     <comment>A generic message that is sent when there is an error occurring</comment>
   </data>
-  <data name="FeedBackAnswerBad" xml:space="preserve">
-    <value>Не понравилось</value>
+  <data name="FeedBackNoAnotherReplyText" xml:space="preserve">
+    <value>Что-то не сложилось. Поделитесь развернутым комментарием?</value>
   </data>
-  <data name="FeedBackAnswerCanceled" xml:space="preserve">
-    <value>Я передумал</value>
+  <data name="FeedBackNoAnswerAnother" xml:space="preserve">
+    <value>Другое</value>
   </data>
-  <data name="FeedBackAnswerGood" xml:space="preserve">
-    <value>Хорошо</value>
-  </data>
-  <data name="FeedBackAnswerNoGoodTime" xml:space="preserve">
+  <data name="FeedBackNoAnswerNoGoodTime" xml:space="preserve">
     <value>Не удалось выбрать свободное время</value>
   </data>
-  <data name="FeedBackAnswerNoResponse" xml:space="preserve">
+  <data name="FeedBackNoAnswerNoResponse" xml:space="preserve">
     <value>Собеседник не ответил</value>
   </data>
-  <data name="FeedBackAnswerNormal" xml:space="preserve">
-    <value>Нормально</value>
+  <data name="FeedBackNoAnswerRequestText" xml:space="preserve">
+    <value>Как грустно это слышать. Раскажете, почему?</value>
   </data>
-  <data name="FeedBackAnswerText" xml:space="preserve">
-    <value>Как прошла ваша встреча?</value>
+  <data name="FeedBackNoCanceledReplyText" xml:space="preserve">
+    <value>Такое случается. Поделитесь развернутым комментарием?</value>
   </data>
-  <data name="FeedBackAnswerVeryGood" xml:space="preserve">
-    <value>Супер</value>
+  <data name="FeedBackNoNoGoodTimeReplyText" xml:space="preserve">
+    <value>Какая досада. Но вы не огорчайтесь, впереди новая неделя и новый интересный собеседник!</value>
   </data>
-  <data name="FeedBackAnswerWhyNotText" xml:space="preserve">
-    <value>Расскажешь почему?</value>
+  <data name="FeedbackNoNoResponseReplyText" xml:space="preserve">
+    <value>Эх, но вы не огорчайтесь. Впереди новая неделя и новый интересный собеседний!</value>
+  </data>
+  <data name="FeedbackReplyAfterCommentText" xml:space="preserve">
+    <value>Спасибо за комментарий</value>
+  </data>
+  <data name="FeedBackYesAnswerBad" xml:space="preserve">
+    <value>Так себе</value>
+  </data>
+  <data name="FeedBackYesAnswerCanceled" xml:space="preserve">
+    <value>Я передумал</value>
+  </data>
+  <data name="FeedBackYesAnswerGood" xml:space="preserve">
+    <value>Хорошо</value>
+  </data>
+  <data name="FeedBackYesAnswerRequestText" xml:space="preserve">
+    <value>Надеюсь, я сделал правильный выбор. И как прошла ваша встреча?</value>
+  </data>
+  <data name="FeedBackYesAnswerVeryGood" xml:space="preserve">
+    <value>Я в восторге</value>
+  </data>
+  <data name="FeedbackYesBadReplayText" xml:space="preserve">
+    <value>Как грустно это слышать. Поделитесь, почему?</value>
+  </data>
+  <data name="FeedBackYesGoodReplyText1" xml:space="preserve">
+    <value>Здорово! Поделитесь развернутым комментарием?</value>
+  </data>
+  <data name="FeedBackYesGoodReplyText2" xml:space="preserve">
+    <value>А впереди новая неделя и новый интересный собеседник!</value>
+  </data>
+  <data name="FeedbackYesSuperReplyText1" xml:space="preserve">
+    <value>Ура! Буду счастлив вместе с вами, если поделитесь развернутым комментарием.</value>
+  </data>
+  <data name="FeedbackYesSuperReplyText2" xml:space="preserve">
+    <value>А впереди новая неделя и новый интересный собеседеник!</value>
   </data>
   <data name="InitMessageToRecipientText" xml:space="preserve">
     <value>Привет! На этой неделе ты мой интересный собеседник :)</value>
@@ -200,7 +230,7 @@
     <comment>Content of the Meetup for the propose meeting</comment>
   </data>
   <data name="MeetupFeedBackMsg" xml:space="preserve">
-    <value>Удалось ли вам встретиться с {0} на этой неделе?</value>
+    <value>Вот и неделя прошла. {0}, я буду рад получить от вас весточку! Удалось ли вам встретиться с {1}?</value>
   </data>
   <data name="MeetupTitle" xml:space="preserve">
     <value>{0} / {1} Встреча</value>

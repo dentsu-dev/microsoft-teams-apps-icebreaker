@@ -53,7 +53,7 @@ namespace Icebreaker.Components.IncomingMsgs
                             Title = Resources.ResumePairingsButtonText,
                             DisplayText = Resources.ResumePairingsButtonText,
                             Type = ActionTypes.MessageBack,
-                            Text = ActivityNames.Optin
+                            Text = CardActions.Optin
                         }
                     }
                 }.ToAttachment(),

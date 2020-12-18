@@ -78,7 +78,7 @@ namespace Icebreaker.Helpers.AdaptiveCards
                 { "tourUrl", tourUrl },
                 { "salutationText", salutationText },
                 { "tourButtonText", tourButtonText },
-                { "optoutTextName", ActivityNames.Optout}
+                { "optoutTextName", CardActions.Optout}
             };
 
             var cardBody = CardTemplate;

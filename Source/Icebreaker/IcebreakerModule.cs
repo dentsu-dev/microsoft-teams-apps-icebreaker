@@ -30,7 +30,7 @@ namespace Icebreaker
             builder.RegisterType<IcebreakerBot>()
                 .SingleInstance();
 
-            builder.RegisterType<IcebreakerBotDataProvider>()
+            builder.RegisterType<BotRepository>()
                 .SingleInstance();
         }
     }

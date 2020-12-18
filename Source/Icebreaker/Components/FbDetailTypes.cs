@@ -9,7 +9,7 @@ namespace Icebreaker.Components
     {
         public static string Super = "super";
         public static string Good = "good";
-        public static string bad = "bad";
+        public static string Bad = "bad";
 
         public static string NoResponse = "noResponse";
         public static string Canceled = "canceled";

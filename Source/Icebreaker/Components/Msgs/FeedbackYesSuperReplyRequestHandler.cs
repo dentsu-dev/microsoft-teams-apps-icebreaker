@@ -54,7 +54,8 @@ namespace Icebreaker.Components.IncomingMsgs
             await _repository.FeedbackDetailCreate(
                 activity.From.AsTeamsChannelAccount().Email,
                 lastCompanionEmail,
-                FbRootTypes.No);
+                FbDetailTypes.Super,
+                FbRootTypes.Yes);
 
             return reply;
         }

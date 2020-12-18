@@ -8,7 +8,8 @@ namespace Icebreaker.Components.Msgs
 {
     public class CommonTextResult
     {
-        public Activity Activity { get; set; }
-        public string BotMessage { get; set; } 
+        public Activity Reply { get; set; }
+
+        public string NewBotMessage { get; set; }
     }
 }

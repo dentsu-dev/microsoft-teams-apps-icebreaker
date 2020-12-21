@@ -209,7 +209,7 @@ namespace Icebreaker.Db
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<BotLastMessageInfo> queryable = documentClient
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
-                .Where(p => p.UserEmail == userAadId);
+                .Where(p => p.UserId == userAadId);
 
             var entity = queryable.ToList().FirstOrDefault();
             return entity;

@@ -22,7 +22,7 @@ namespace Icebreaker.Db
     /// <summary>
     /// Data provider routines
     /// </summary>
-    public class BotRepository : IStartable
+    public class BotRepository
     {
         // Request the minimum throughput by default
         private const int DefaultRequestThroughput = 400;
@@ -59,6 +59,8 @@ namespace Icebreaker.Db
         /// <returns>Tracking task</returns>
         public async Task TeamInstallUpdate(TeamInstallInfo team, bool installed)
         {
+            await this.EnsureInitializedAsync();
+
             if (installed)
             {
                 var response = await this.documentClient.UpsertDocumentAsync(this.teamsCollection.SelfLink, team);
@@ -76,6 +78,8 @@ namespace Icebreaker.Db
         /// <returns>List of installed teams</returns>
         public async Task<IList<TeamInstallInfo>> InstalledTeamsGet()
         {
+            await this.EnsureInitializedAsync();
+
             var installedTeams = new List<TeamInstallInfo>();
 
             try
@@ -106,6 +110,8 @@ namespace Icebreaker.Db
         /// <returns>Team that the bot is installed to</returns>
         public async Task<TeamInstallInfo> InstalledTeamGet(string teamId)
         {
+            await this.EnsureInitializedAsync();
+
             // Get team install info
             try
             {
@@ -126,6 +132,8 @@ namespace Icebreaker.Db
         /// <returns>User information</returns>
         public async Task<UserOptInStatusInfo> UserInfoGet(string userId)
         {
+            await this.EnsureInitializedAsync();
+
             try
             {
                 var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.usersCollection.Id, userId);
@@ -148,6 +156,8 @@ namespace Icebreaker.Db
         /// <returns>Tracking task</returns>
         public async Task UserInfoSet(string tenantId, string userId, bool optedIn, string serviceUrl)
         {
+            await this.EnsureInitializedAsync();
+
             var userInfo = new UserOptInStatusInfo
             {
                 TenantId = tenantId,
@@ -165,6 +175,8 @@ namespace Icebreaker.Db
         /// <returns>Tracking task</returns>
         public async Task UserMatchInfoSave(string tenantId, string senderEmail, string senderName, string receiverEmail, string receiverName, string serviceUrl)
         {
+            await this.EnsureInitializedAsync();
+
             var userInfo = new UserMatchInfo()
             {
                 TenantId = tenantId,
@@ -180,6 +192,8 @@ namespace Icebreaker.Db
 
         public async Task BotLastMessageUpdate(string userEmail, string message)
         {
+            await this.EnsureInitializedAsync();
+
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<BotLastMessageInfo> queryable = documentClient
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
@@ -206,6 +220,8 @@ namespace Icebreaker.Db
 
         public async Task<BotLastMessageInfo> BotLastMessageGet(string userEmail)
         {
+            await this.EnsureInitializedAsync();
+
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<BotLastMessageInfo> queryable = documentClient
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
@@ -217,6 +233,8 @@ namespace Icebreaker.Db
 
         public async Task<List<UserMatchInfo>> UserMatchInfoSearchByDate(DateTime time)
         {
+            await this.EnsureInitializedAsync();
+
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<UserMatchInfo> queryable = documentClient
                 .CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink, option)
@@ -228,6 +246,8 @@ namespace Icebreaker.Db
 
         public async Task<UserMatchInfo> UserMatchInfoSearchByDateAndUser(DateTime time, string userEmail)
         {
+            await this.EnsureInitializedAsync();
+
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<UserMatchInfo> queryable = documentClient
                 .CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink, option)
@@ -239,6 +259,8 @@ namespace Icebreaker.Db
 
         public async Task FeedbackRootCreate(string userEmail, string companionUserEmail, string type)
         {
+            await this.EnsureInitializedAsync();
+
             var entity = new FeedBackRootInfo
             {
                 UserEmail = userEmail,
@@ -251,6 +273,8 @@ namespace Icebreaker.Db
 
         public async Task FeedbackDetailCreate(string userEmail, string companionUserEmail, string type, string rootType)
         {
+            await this.EnsureInitializedAsync();
+
             var entity = new FeedBackDetailInfo
             {
                 UserEmail = userEmail,
@@ -264,6 +288,8 @@ namespace Icebreaker.Db
 
         public async Task FeedbackCommentCreate(string userEmail, string companionUserEmail, string detailType, string rootType, string comment)
         {
+            await this.EnsureInitializedAsync();
+
             var entity = new FeedBackCommentInfo
             {
                 UserEmail = userEmail,
@@ -278,6 +304,8 @@ namespace Icebreaker.Db
 
         public async Task UnknownMessageCreate(string userEmail, string message)
         {
+            await this.EnsureInitializedAsync();
+
             var entity = new UnknownMessageInfo
             {
                 UserEmail = userEmail,
@@ -289,6 +317,8 @@ namespace Icebreaker.Db
 
         public async Task UserDetailsUpdate(string aaId, string givenName, string name, string email)
         {
+            await this.EnsureInitializedAsync();
+
             var entity = new UserDetailsInfo
             {
                 Id = aaId,
@@ -377,11 +407,6 @@ namespace Icebreaker.Db
         private async Task EnsureInitializedAsync()
         {
             await this.initializeTask.Value;
-        }
-
-        public void Start()
-        {
-            EnsureInitializedAsync().Wait();
         }
     }
 }

@@ -88,6 +88,12 @@ namespace Icebreaker
                         var teamName = await this.GetTeamNameAsync(connectorClient, team.TeamId);
                         var optedInUsers = await this.GetOptedInUsers(connectorClient, team);
 
+                        foreach (var c in optedInUsers)
+                        {
+                            var t = c.AsTeamsChannelAccount();
+                            await dataProvider.UserDetailsUpdate(t.AadObjectId, t.GivenName, t.Name, t.Email);
+                        }
+
                         foreach (var pair in this.MakePairs(optedInUsers).Take(this.maxPairUpsPerTeam))
                         {
                             usersNotifiedCount += await this.NotifyPair(connectorClient, team.TenantId, teamName, pair);

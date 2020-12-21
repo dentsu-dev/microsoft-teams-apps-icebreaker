@@ -59,8 +59,6 @@ namespace Icebreaker.Db
         /// <returns>Tracking task</returns>
         public async Task TeamInstallUpdate(TeamInstallInfo team, bool installed)
         {
-            await this.EnsureInitializedAsync();
-
             if (installed)
             {
                 var response = await this.documentClient.UpsertDocumentAsync(this.teamsCollection.SelfLink, team);
@@ -78,8 +76,6 @@ namespace Icebreaker.Db
         /// <returns>List of installed teams</returns>
         public async Task<IList<TeamInstallInfo>> InstalledTeamsGet()
         {
-            await this.EnsureInitializedAsync();
-
             var installedTeams = new List<TeamInstallInfo>();
 
             try
@@ -110,8 +106,6 @@ namespace Icebreaker.Db
         /// <returns>Team that the bot is installed to</returns>
         public async Task<TeamInstallInfo> InstalledTeamGet(string teamId)
         {
-            await this.EnsureInitializedAsync();
-
             // Get team install info
             try
             {
@@ -132,8 +126,6 @@ namespace Icebreaker.Db
         /// <returns>User information</returns>
         public async Task<UserOptInStatusInfo> UserInfoGet(string userId)
         {
-            await this.EnsureInitializedAsync();
-
             try
             {
                 var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.usersCollection.Id, userId);
@@ -156,8 +148,6 @@ namespace Icebreaker.Db
         /// <returns>Tracking task</returns>
         public async Task UserInfoSet(string tenantId, string userId, bool optedIn, string serviceUrl)
         {
-            await this.EnsureInitializedAsync();
-
             var userInfo = new UserOptInStatusInfo
             {
                 TenantId = tenantId,
@@ -175,8 +165,6 @@ namespace Icebreaker.Db
         /// <returns>Tracking task</returns>
         public async Task UserMatchInfoSave(string tenantId, string senderEmail, string senderName, string receiverEmail, string receiverName, string serviceUrl)
         {
-            await this.EnsureInitializedAsync();
-
             var userInfo = new UserMatchInfo()
             {
                 TenantId = tenantId,

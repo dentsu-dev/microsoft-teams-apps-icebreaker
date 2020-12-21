@@ -358,10 +358,11 @@ namespace Icebreaker
             Tuple<ChannelAccount, ChannelAccount> pair)
         {
             this.telemetryClient.TrackTrace($"Sending pairup notification to {pair.Item1.Id} and {pair.Item2.Id}");
-            this.telemetryClient.TrackTrace($"json Item1: {JsonConvert.SerializeObject(pair.Item1)}");
 
             var teamsPerson1 = pair.Item1.AsTeamsChannelAccount();
             var teamsPerson2 = pair.Item2.AsTeamsChannelAccount();
+
+            this.telemetryClient.TrackTrace($"json Item1: {JsonConvert.SerializeObject(teamsPerson1)}");
 
             var notifiedResults = 0;
            

@@ -38,7 +38,7 @@ namespace Icebreaker.Components
             Activity reply;
             string botLastMessage;
 
-            var senderAadId = activity.SenderAadId();
+            var senderAadId = activity.From.AsTeamsChannelAccount().ObjectId;
 
             var senderUserDetails = await _repository.UserDetailsGet(senderAadId);
             var lastMatch = await _bot.GetLastMatch(senderAadId);

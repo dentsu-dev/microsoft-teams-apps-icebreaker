@@ -372,9 +372,9 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson1, teamsPerson1, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.UserMatchInfoSave(teamsPerson1.Email, teamsPerson1.AadObjectId,
-                    teamsPerson2.Email, teamsPerson2.AadObjectId);
-                await dataProvider.BotLastMessageUpdate(teamsPerson1.AadObjectId, teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
+                await dataProvider.UserMatchInfoSave(teamsPerson1.Email, teamsPerson1.ObjectId,
+                    teamsPerson2.Email, teamsPerson2.ObjectId);
+                await dataProvider.BotLastMessageUpdate(teamsPerson1.ObjectId, teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Fill in person1's info in the card for person2
@@ -383,9 +383,9 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson2, teamsPerson2, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.UserMatchInfoSave(teamsPerson2.Email, teamsPerson2.AadObjectId,
-                    teamsPerson1.Email, teamsPerson1.AadObjectId);
-                await dataProvider.BotLastMessageUpdate(teamsPerson2.AadObjectId, teamsPerson2.Email, BotMessageTypes.NewMatchedPair);
+                await dataProvider.UserMatchInfoSave(teamsPerson2.Email, teamsPerson2.ObjectId,
+                    teamsPerson1.Email, teamsPerson1.ObjectId);
+                await dataProvider.BotLastMessageUpdate(teamsPerson2.ObjectId, teamsPerson2.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Send notifications and return the number that was successful

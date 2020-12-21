@@ -192,29 +192,14 @@ namespace Icebreaker.Db
         {
             await this.EnsureInitializedAsync();
 
-            var option = new FeedOptions { EnableCrossPartitionQuery = true };
-            IQueryable<BotLastMessageInfo> queryable = documentClient
-                .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
-                .Where(p => p.Id == userAadId);
-
-            var entity = queryable.ToList().FirstOrDefault();
-            if (entity != null)
+            var entity = new BotLastMessageInfo
             {
-                entity.UserId = userAadId;
-                entity.Message = message;
-                entity.Modified = DateTime.UtcNow;
-                await this.documentClient.UpsertDocumentAsync(this.botLastMessageInfoCollection.SelfLink, entity);
-            }
-            else
-            {
-                entity = new BotLastMessageInfo
-                {
-                    UserEmail = email,
-                    Message = message,
-                    Modified = DateTime.UtcNow
-                };
-                await this.documentClient.UpsertDocumentAsync(this.botLastMessageInfoCollection.SelfLink, entity);
-            }
+                UserEmail = email,
+                UserId = userAadId,
+                Message = message,
+                Modified = DateTime.UtcNow
+            };
+            await this.documentClient.UpsertDocumentAsync(this.botLastMessageInfoCollection.SelfLink, entity);
         }
 
         public async Task<BotLastMessageInfo> BotLastMessageGet(string userAadId)
@@ -328,7 +313,7 @@ namespace Icebreaker.Db
 
             var entity = new UserDetailsInfo
             {
-                Id = aaId,
+                UserId = aaId,
                 GivenName = givenName,
                 Name = name,
                 Email = email

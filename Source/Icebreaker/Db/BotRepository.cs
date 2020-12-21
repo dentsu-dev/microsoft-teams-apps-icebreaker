@@ -206,13 +206,11 @@ namespace Icebreaker.Db
         {
             await this.EnsureInitializedAsync();
 
-            var option = new FeedOptions { EnableCrossPartitionQuery = true };
-            IQueryable<BotLastMessageInfo> queryable = documentClient
-                .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
-                .Where(p => p.UserId == userAadId);
 
-            var entity = queryable.ToList().FirstOrDefault();
-            return entity;
+            var documentUri =
+                UriFactory.CreateDocumentUri(this.database.Id, this.botLastMessageInfoCollection.Id, userAadId);
+            return await this.documentClient.ReadDocumentAsync<BotLastMessageInfo>(documentUri,
+                new RequestOptions {PartitionKey = new PartitionKey(userAadId) });
         }
 
         public async Task<List<UserMatchInfo>> UserMatchInfoSearchByDate(DateTime time)

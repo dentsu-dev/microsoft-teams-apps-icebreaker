@@ -179,7 +179,7 @@ namespace Icebreaker
         /// <param name="activity">The activity</param>
         private void LogActivityTelemetry(Activity activity)
         {
-            var fromObjectId = activity.From?.Properties["aadObjectId"]?.ToString();
+            var fromObjectId = activity.SenderAadId();
             var clientInfoEntity = activity.Entities?.Where(e => e.Type == "clientInfo")?.FirstOrDefault();
             var channelData = activity.GetChannelData<TeamsChannelData>();
 

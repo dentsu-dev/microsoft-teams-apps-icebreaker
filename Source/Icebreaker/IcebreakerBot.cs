@@ -361,7 +361,7 @@ namespace Icebreaker
 
             var teamsPerson1 = pair.Item1.AsTeamsChannelAccount();
             var teamsPerson2 = pair.Item2.AsTeamsChannelAccount();
-            
+
             var notifiedResults = 0;
            
             // Fill in person2's info in the card for person1
@@ -388,6 +388,7 @@ namespace Icebreaker
 
             // Send notifications and return the number that was successful
             return notifiedResults;
+
         }
 
         private async Task<bool> NotifyUser(ConnectorClient connectorClient, string cardToSend, ChannelAccount user, string tenantId)

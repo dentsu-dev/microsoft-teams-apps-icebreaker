@@ -395,7 +395,7 @@ namespace Icebreaker
 
         private async Task<bool> NotifyUser(ConnectorClient connectorClient, string cardToSend, ChannelAccount user, string tenantId)
         {
-            this.telemetryClient.TrackTrace($"Sending notification to user {user.Id}");
+            this.telemetryClient.TrackTrace($"Sending notification to user {user.Id} and AadObjectId {user.AadObjectId}");
 
             try
             {

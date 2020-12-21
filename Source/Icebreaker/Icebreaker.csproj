@@ -290,6 +290,10 @@
     <Compile Include="Components\Msgs\OptOutRequestHandler.cs" />
     <Compile Include="Components\Msgs\CommonTextRequest.cs" />
     <Compile Include="Components\Msgs\CommonTextRequestHandler.cs" />
+    <Compile Include="Components\Msgs\UnregisterdUserRequest.cs" />
+    <Compile Include="Components\Msgs\UnregisterdUserRequestHandler.cs" />
+    <Compile Include="Components\Msgs\UserIsOptedDownRequest.cs" />
+    <Compile Include="Components\Msgs\UserIsOptedDownRequestHandler.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\ProcessNowController.cs" />
     <Compile Include="Db\Entities\BotLastMessageToUserInfo.cs" />

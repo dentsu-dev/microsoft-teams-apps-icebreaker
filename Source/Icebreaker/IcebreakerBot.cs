@@ -292,9 +292,13 @@ namespace Icebreaker
                                 .FirstOrDefault();
                             if (dbMatch != null)
                             {
-                                var card = FeedbackCard.GetCard(dbMatch.SenderGivenName, dbMatch.RecipientGivenName);
+                                var senderDetails = await dataProvider.UserDetailsGet(dbMatch.SenderAadId);
+                                var recipientDetails = await dataProvider.UserDetailsGet(dbMatch.RecipientAadId);
+
+                                var card = FeedbackCard.GetCard(senderDetails?.GivenName, recipientDetails?.GivenName);
                                 await NotifyUser(connectorClient, card, userInfo.User, team.TenantId);
                                 await dataProvider.BotLastMessageUpdate(
+                                    userInfo.ChannelAccount.AadObjectId,
                                     userInfo.ChannelAccount.Email,
                                     BotMessageTypes.Fb);
                             }
@@ -357,14 +361,7 @@ namespace Icebreaker
 
             var teamsPerson1 = pair.Item1.AsTeamsChannelAccount();
             var teamsPerson2 = pair.Item2.AsTeamsChannelAccount();
-
-            var teamsPerson1GivenName = string.IsNullOrEmpty(teamsPerson1.GivenName)
-                ? teamsPerson1.Name
-                : teamsPerson1.GivenName;
-            var teamsPerson2GivenName = string.IsNullOrEmpty(teamsPerson2.GivenName)
-                ? teamsPerson2.Name
-                : teamsPerson2.GivenName;
-
+            
             var notifiedResults = 0;
            
             // Fill in person2's info in the card for person1
@@ -373,10 +370,9 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson1, teamsPerson1, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.UserMatchInfoSave(tenantId, teamsPerson1.Email, teamsPerson1GivenName,
-                    teamsPerson2.Email,
-                    teamsPerson2GivenName, connectorClient.BaseUri.ToString());
-                await dataProvider.BotLastMessageUpdate(teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
+                await dataProvider.UserMatchInfoSave(teamsPerson1.Email, teamsPerson1.AadObjectId,
+                    teamsPerson2.Email, teamsPerson2.AadObjectId);
+                await dataProvider.BotLastMessageUpdate(teamsPerson1.AadObjectId, teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Fill in person1's info in the card for person2
@@ -385,10 +381,9 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson2, teamsPerson2, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.UserMatchInfoSave(tenantId, teamsPerson2.Email, teamsPerson2GivenName,
-                    teamsPerson1.Email,
-                    teamsPerson1GivenName, connectorClient.BaseUri.ToString());
-                await dataProvider.BotLastMessageUpdate(teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
+                await dataProvider.UserMatchInfoSave(teamsPerson2.Email, teamsPerson2.AadObjectId,
+                    teamsPerson1.Email, teamsPerson1.AadObjectId);
+                await dataProvider.BotLastMessageUpdate(teamsPerson2.AadObjectId, teamsPerson2.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Send notifications and return the number that was successful
@@ -495,6 +490,19 @@ namespace Icebreaker
                 .ToList();
         }
 
+        /// <summary>
+        /// Get last userMatch for user
+        /// </summary>
+        public async Task<UserMatchInfo> GetLastMatch(string userAadId)
+        {
+            var searchDate = DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays);
+            var lastUserMatch =
+                await dataProvider.UserMatchInfoSearchByDateAndUser(
+                    searchDate,
+                    userAadId);
+
+            return lastUserMatch;
+        }
 
         private List<Tuple<ChannelAccount, ChannelAccount>> MakePairs(List<ChannelAccount> users)
         {

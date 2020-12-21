@@ -12,5 +12,10 @@ namespace Icebreaker.Helpers
         {
             return string.Equals(activity.Text, name, StringComparison.InvariantCultureIgnoreCase);
         }
+
+        public static string SenderAadId(this Activity activity)
+        {
+            return activity.From.Properties["aadObjectId"].ToString();
+        }
     }
 }

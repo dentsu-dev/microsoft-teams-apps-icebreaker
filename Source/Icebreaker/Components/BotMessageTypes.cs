@@ -123,5 +123,10 @@ namespace Icebreaker.Components
         /// Feedback scenario completed, user sent any request, bot has no answer and sent message about it to user
         /// </summary>
         public static string ByeForNextPeriod = "byeForNextPeriod";
+
+        /// <summary>
+        /// Bot doesn't know user, user should wait for next week
+        /// </summary>
+        public static string UnregisteredUser = "unregisteredUser";
     }
 }

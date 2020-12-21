@@ -12,8 +12,14 @@ namespace Icebreaker.Db.Entities
         [JsonProperty("userEmail")]
         public string UserEmail { get; set; }
 
+        [JsonProperty("userAaId")]
+        public string UserAadId { get; set; }
+
         [JsonProperty("companionUserEmail")]
         public string CompanionUserEmail { get; set; }
+
+        [JsonProperty("companionUserAaId")]
+        public string CompanionUserAadId { get; set; }
 
         [JsonProperty("comment")]
         public string Comment { get; set; }

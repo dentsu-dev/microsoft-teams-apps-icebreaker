@@ -31,35 +31,22 @@ namespace Icebreaker.Components.IncomingMsgs
         public async Task<CommonTextResult> Handle(CommonTextRequest request, CancellationToken cancellationToken)
         {
             // Unknown input
-            _telemetryClient.TrackTrace($"Hadling common message from user: {request.Activity.Text}");
+            _telemetryClient.TrackTrace($"Handling common message from user: {request.Activity.Text}");
 
             var activity = request.Activity;
-
-            var userInfo = request.Activity.From.AsTeamsChannelAccount();
-
-            var lastBotMessageInfo = await _repository.BotLastMessageGet(userInfo.Email);
-            var botMsg = lastBotMessageInfo.Message;
-
-            var searchDate = DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays);
-            var lastUserMatch =
-                await _repository.UserMatchInfoSearchByDateAndUser(
-                    searchDate,
-                    userInfo.Email);
-
-            var lastCompanionEmail = string.Empty;
-            if (lastUserMatch != null)
-            {
-                lastCompanionEmail = lastUserMatch.RecipientEmail;
-            }
+            var botMsg = request.BotLastMessage.Message;
+            var lastMatch = request.UserMatch;
 
             var replyActivity = request.Activity.CreateReply();
-            var newbotMessage = string.Empty;
+            string newbotMessage;
 
             if (botMsg.Is(BotMessageTypes.FbYesSuperResponse))
             {
                 await _repository.FeedbackCommentCreate(
-                    userInfo.Email,
-                    lastCompanionEmail,
+                    lastMatch.SenderEmail,
+                    lastMatch.SenderAadId,
+                    lastMatch.RecipientEmail,
+                    lastMatch.RecipientAadId,
                     FbDetailTypes.Super,
                     FbRootTypes.Yes,
                     activity.Text);
@@ -69,8 +56,10 @@ namespace Icebreaker.Components.IncomingMsgs
             else if (botMsg.Is(BotMessageTypes.FbYesGoodResponse))
             {
                 await _repository.FeedbackCommentCreate(
-                    userInfo.Email,
-                    lastCompanionEmail,
+                    lastMatch.SenderEmail,
+                    lastMatch.SenderAadId,
+                    lastMatch.RecipientEmail,
+                    lastMatch.RecipientAadId,
                     FbDetailTypes.Good,
                     FbRootTypes.Yes,
                     activity.Text);
@@ -80,8 +69,10 @@ namespace Icebreaker.Components.IncomingMsgs
             else if (botMsg.Is(BotMessageTypes.FbYesBadResponse))
             {
                 await _repository.FeedbackCommentCreate(
-                    userInfo.Email,
-                    lastCompanionEmail,
+                    lastMatch.SenderEmail,
+                    lastMatch.SenderAadId,
+                    lastMatch.RecipientEmail,
+                    lastMatch.RecipientAadId,
                     FbDetailTypes.Bad,
                     FbRootTypes.Yes,
                     activity.Text);
@@ -91,8 +82,10 @@ namespace Icebreaker.Components.IncomingMsgs
             else if (botMsg.Is(BotMessageTypes.FbNoCanceledResponse))
             {
                 await _repository.FeedbackCommentCreate(
-                    userInfo.Email,
-                    lastCompanionEmail,
+                    lastMatch.SenderEmail,
+                    lastMatch.SenderAadId,
+                    lastMatch.RecipientEmail,
+                    lastMatch.RecipientAadId,
                     FbDetailTypes.Canceled,
                     FbRootTypes.No,
                     activity.Text);
@@ -102,8 +95,10 @@ namespace Icebreaker.Components.IncomingMsgs
             else if (botMsg.Is(BotMessageTypes.FbNoGoodTimeResponse))
             {
                 await _repository.FeedbackCommentCreate(
-                    userInfo.Email,
-                    lastCompanionEmail,
+                    lastMatch.SenderEmail,
+                    lastMatch.SenderAadId,
+                    lastMatch.RecipientEmail,
+                    lastMatch.RecipientAadId,
                     FbDetailTypes.NoGoodTime,
                     FbRootTypes.No,
                     activity.Text);
@@ -113,8 +108,10 @@ namespace Icebreaker.Components.IncomingMsgs
             else if (botMsg.Is(BotMessageTypes.FbNoAnotherReasonResponse))
             {
                 await _repository.FeedbackCommentCreate(
-                    userInfo.Email,
-                    lastCompanionEmail,
+                    lastMatch.SenderEmail,
+                    lastMatch.SenderAadId,
+                    lastMatch.RecipientEmail,
+                    lastMatch.RecipientAadId,
                     FbDetailTypes.NoAnother,
                     FbRootTypes.No,
                     activity.Text);
@@ -150,11 +147,12 @@ namespace Icebreaker.Components.IncomingMsgs
                 }
                 else
                 {
+                    await _repository.UnknownMessageCreate(lastMatch.SenderEmail, lastMatch.SenderAadId, activity.Text);
                     ReplyBye(replyActivity);
                     newbotMessage = BotMessageTypes.ByeForNextPeriod;
                 }
             }
-            
+
             return new CommonTextResult
             {
                 Reply = replyActivity,

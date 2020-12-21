@@ -475,6 +475,24 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Дорогой друг! Приятно видеть ваше желание принять участие в Random Coffee прямо сейчас, но пары собеседников на эту неделю уже определены. Пожалуйста, дождитесь следующего понедельника. А пока можете заполнить свой профиль на портале, чтобы коллеги узнали вас получше..
+        /// </summary>
+        internal static string UnregisteredUserText {
+            get {
+                return ResourceManager.GetString("UnregisteredUserText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дорогой друг! Приятно, что вы помните обо мне! Я обещал вас не беспокоить и продолжаю держать свое слово. Но так хочется видеться с вами почаще. Вы готовы возобновить свое участие в Random Coffee?.
+        /// </summary>
+        internal static string UserIsOptedDownText {
+            get {
+                return ResourceManager.GetString("UserIsOptedDownText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Посмотреть профиль.
         /// </summary>
         internal static string ViewProfileButtonText {

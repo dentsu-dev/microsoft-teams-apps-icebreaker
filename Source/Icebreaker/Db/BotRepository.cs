@@ -173,35 +173,34 @@ namespace Icebreaker.Db
         /// Save userMatchInfo
         /// </summary>
         /// <returns>Tracking task</returns>
-        public async Task UserMatchInfoSave(string tenantId, string senderEmail, string senderName, string receiverEmail, string receiverName, string serviceUrl)
+        public async Task UserMatchInfoSave(string senderEmail, string senderAadId, string receiverEmail, string recipientAadId)
         {
             await this.EnsureInitializedAsync();
 
             var userInfo = new UserMatchInfo()
             {
-                TenantId = tenantId,
                 SenderEmail = senderEmail,
-                SenderGivenName = senderName,
+                SenderAadId = senderAadId,
                 RecipientEmail = receiverEmail,
-                RecipientGivenName = receiverName,
+                RecipientAadId = recipientAadId,
                 Created = DateTime.Now.ToUniversalTime(),
-                ServiceUrl = serviceUrl
             };
             await this.documentClient.UpsertDocumentAsync(this.usersMatchInfoCollection.SelfLink, userInfo);
         }
 
-        public async Task BotLastMessageUpdate(string userEmail, string message)
+        public async Task BotLastMessageUpdate(string userAadId, string email, string message)
         {
             await this.EnsureInitializedAsync();
 
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<BotLastMessageInfo> queryable = documentClient
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
-                .Where(p => p.UserEmail == userEmail);
+                .Where(p => p.Id == userAadId);
 
             var entity = queryable.ToList().FirstOrDefault();
             if (entity != null)
             {
+                entity.UserId = userAadId;
                 entity.Message = message;
                 entity.Modified = DateTime.UtcNow;
                 await this.documentClient.UpsertDocumentAsync(this.botLastMessageInfoCollection.SelfLink, entity);
@@ -210,7 +209,7 @@ namespace Icebreaker.Db
             {
                 entity = new BotLastMessageInfo
                 {
-                    UserEmail = userEmail,
+                    UserEmail = email,
                     Message = message,
                     Modified = DateTime.UtcNow
                 };
@@ -218,14 +217,14 @@ namespace Icebreaker.Db
             }
         }
 
-        public async Task<BotLastMessageInfo> BotLastMessageGet(string userEmail)
+        public async Task<BotLastMessageInfo> BotLastMessageGet(string userAadId)
         {
             await this.EnsureInitializedAsync();
 
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<BotLastMessageInfo> queryable = documentClient
                 .CreateDocumentQuery<BotLastMessageInfo>(this.usersMatchInfoCollection.SelfLink, option)
-                .Where(p => p.UserEmail == userEmail);
+                .Where(p => p.UserEmail == userAadId);
 
             var entity = queryable.ToList().FirstOrDefault();
             return entity;
@@ -244,41 +243,46 @@ namespace Icebreaker.Db
             return result;
         }
 
-        public async Task<UserMatchInfo> UserMatchInfoSearchByDateAndUser(DateTime time, string userEmail)
+        public async Task<UserMatchInfo> UserMatchInfoSearchByDateAndUser(DateTime time, string userAadId)
         {
             await this.EnsureInitializedAsync();
 
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<UserMatchInfo> queryable = documentClient
                 .CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink, option)
-                .Where(p => p.Created > time && p.SenderEmail == userEmail);
+                .OrderByDescending(p => p.Created)
+                .Where(p => p.Created > time && p.SenderAadId == userAadId);
 
             var result = queryable.ToList().FirstOrDefault();
             return result;
         }
 
-        public async Task FeedbackRootCreate(string userEmail, string companionUserEmail, string type)
+        public async Task FeedbackRootCreate(string userEmail, string userAadId, string companionUserEmail, string companionUserAadId, string type)
         {
             await this.EnsureInitializedAsync();
 
             var entity = new FeedBackRootInfo
             {
                 UserEmail = userEmail,
+                UserAadId = userAadId,
                 CompanionUserEmail = companionUserEmail,
+                CompanionUserAadId = companionUserAadId,
                 Type = type,
                 Created = DateTime.UtcNow
             };
             await this.documentClient.UpsertDocumentAsync(this.fbRootInfoCollection.SelfLink, entity);
         }
 
-        public async Task FeedbackDetailCreate(string userEmail, string companionUserEmail, string type, string rootType)
+        public async Task FeedbackDetailCreate(string userEmail, string userAadId, string companionUserEmail, string companionUserAadId, string type, string rootType)
         {
             await this.EnsureInitializedAsync();
 
             var entity = new FeedBackDetailInfo
             {
                 UserEmail = userEmail,
+                UserAadId = userAadId,
                 CompanionUserEmail = companionUserEmail,
+                CompanionUserAadId = companionUserAadId,
                 Type = type,
                 RootType = rootType,
                 Created = DateTime.UtcNow
@@ -286,14 +290,16 @@ namespace Icebreaker.Db
             await this.documentClient.UpsertDocumentAsync(this.fbDetailInfoCollection.SelfLink, entity);
         }
 
-        public async Task FeedbackCommentCreate(string userEmail, string companionUserEmail, string detailType, string rootType, string comment)
+        public async Task FeedbackCommentCreate(string userEmail, string userAadId, string companionUserEmail, string companionUserAadId, string detailType, string rootType, string comment)
         {
             await this.EnsureInitializedAsync();
 
             var entity = new FeedBackCommentInfo
             {
                 UserEmail = userEmail,
+                UserAadId = userAadId,
                 CompanionUserEmail = companionUserEmail,
+                CompanionUserAadId = companionUserAadId,
                 DetailType = detailType,
                 RootType = rootType,
                 Comment = comment,
@@ -302,13 +308,14 @@ namespace Icebreaker.Db
             await this.documentClient.UpsertDocumentAsync(this.fbCommentInfoCollection.SelfLink, entity);
         }
 
-        public async Task UnknownMessageCreate(string userEmail, string message)
+        public async Task UnknownMessageCreate(string userEmail, string userAadId, string message)
         {
             await this.EnsureInitializedAsync();
 
             var entity = new UnknownMessageInfo
             {
                 UserEmail = userEmail,
+                UserAadId = userAadId,
                 Message = message,
                 Created = DateTime.UtcNow
             };
@@ -329,6 +336,19 @@ namespace Icebreaker.Db
             await this.documentClient.UpsertDocumentAsync(this.userDetailsCollection.SelfLink, entity);
         }
 
+        public async Task<UserDetailsInfo> UserDetailsGet(string aaId)
+        {
+            await this.EnsureInitializedAsync();
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<UserDetailsInfo> queryable = documentClient
+                .CreateDocumentQuery<UserDetailsInfo>(this.userDetailsCollection.SelfLink, option)
+                .Where(p => p.Id == aaId);
+
+            var result = queryable.ToList().FirstOrDefault();
+            return result;
+        }
+
         /// <summary>
         /// Initializes the database connection.
         /// </summary>
@@ -342,7 +362,7 @@ namespace Icebreaker.Db
             var databaseName = CloudConfigurationManager.GetSetting("CosmosDBDatabaseName");
             var teamsCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionTeams");
             var usersCollectionName = CloudConfigurationManager.GetSetting("CosmosCollectionUsers");
-            var usersMathInfoCollectionName = "UsersMathInfo";
+            var usersMatchInfoCollectionName = "UsersMatchInfo";
             var botLastMessageCollectionName = "BotLastMessage";
             var fbRootInfoCollectionName = "FeedbackRoot";
             var fbDetailInfoCollectionName = "FeedbackDetail";
@@ -377,7 +397,7 @@ namespace Icebreaker.Db
 
             teamsCollection = await EnsureDocumentCollection(teamsCollectionName, useSharedOffer, requestOptions);
             usersCollection = await EnsureDocumentCollection(usersCollectionName, useSharedOffer, requestOptions);
-            usersMatchInfoCollection = await EnsureDocumentCollection(usersMathInfoCollectionName, useSharedOffer,requestOptions);
+            usersMatchInfoCollection = await EnsureDocumentCollection(usersMatchInfoCollectionName, useSharedOffer,requestOptions);
             botLastMessageInfoCollection = await EnsureDocumentCollection(botLastMessageCollectionName, useSharedOffer, requestOptions);
             fbRootInfoCollection = await EnsureDocumentCollection(fbRootInfoCollectionName, useSharedOffer, requestOptions);
             fbDetailInfoCollection = await EnsureDocumentCollection(fbDetailInfoCollectionName, useSharedOffer, requestOptions);

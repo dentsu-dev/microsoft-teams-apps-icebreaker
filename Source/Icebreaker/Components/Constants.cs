@@ -7,6 +7,6 @@ namespace Icebreaker.Components
 {
     public class Constants
     {
-        public const int FeedBackDelayDays = 5;
+        public const int FeedBackDelayDays = 7;
     }
 }

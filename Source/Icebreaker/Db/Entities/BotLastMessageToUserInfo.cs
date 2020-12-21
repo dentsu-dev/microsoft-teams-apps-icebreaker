@@ -12,6 +12,17 @@ namespace Icebreaker.Db.Entities
     /// </summary>
     public class BotLastMessageInfo : Document
     {
+        /// <summary>
+        /// Gets or sets the user's id in Teams (29:xxx).
+        /// This is also the <see cref="Resource.Id"/>.
+        /// </summary>
+        [JsonIgnore]
+        public string UserId
+        {
+            get { return this.Id; }
+            set { this.Id = value; }
+        }
+
         [JsonProperty("userEmail")]
         public string UserEmail { get; set; }
 

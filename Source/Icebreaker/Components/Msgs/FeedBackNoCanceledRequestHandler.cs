@@ -24,6 +24,8 @@ namespace Icebreaker.Components.Msgs
         public async Task<Activity> Handle(FeedBackNoCanceledRequest request, CancellationToken cancellationToken)
         {
             var activity = request.Activity;
+            var botMsg = request.BotLastMessage.Message;
+            var lastMatch = request.UserMatch;
 
             var reply = request.Activity.CreateReply();
             reply.Attachments = new List<Attachment>
@@ -33,22 +35,12 @@ namespace Icebreaker.Components.Msgs
                     Text = Resources.FeedBackNoCanceledReplyText
                 }.ToAttachment(),
             };
-
-            var searchDate = DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays);
-            var lastUserMatch =
-                await _repository.UserMatchInfoSearchByDateAndUser(
-                    searchDate,
-                    activity.From.AsTeamsChannelAccount().Email);
-
-            var lastCompanionEmail = string.Empty;
-            if (lastUserMatch != null)
-            {
-                lastCompanionEmail = lastUserMatch.RecipientEmail;
-            }
-
+            
             await _repository.FeedbackDetailCreate(
-                activity.From.AsTeamsChannelAccount().Email,
-                lastCompanionEmail,
+                lastMatch.SenderEmail,
+                lastMatch.SenderAadId,
+                lastMatch.RecipientEmail,
+                lastMatch.RecipientAadId,
                 FbDetailTypes.Canceled,
                 FbRootTypes.No);
 

@@ -28,6 +28,8 @@ namespace Icebreaker.Components.IncomingMsgs
         public async Task<Activity> Handle(FeedbackYesRequest request, CancellationToken cancellationToken)
         {
             var activity = request.Activity;
+            var botMsg = request.BotLastMessage.Message;
+            var lastMatch = request.UserMatch;
 
             //var senderAadId = activity.From.Properties["aadObjectId"].ToString();
             //var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
@@ -65,21 +67,11 @@ namespace Icebreaker.Components.IncomingMsgs
                 }.ToAttachment(),
             };
 
-            var searchDate = DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays);
-            var lastUserMatch =
-                await _repository.UserMatchInfoSearchByDateAndUser(
-                    searchDate,
-                    activity.From.AsTeamsChannelAccount().Email);
-
-            var lastCompanionEmail = string.Empty;
-            if (lastUserMatch != null)
-            {
-                lastCompanionEmail = lastUserMatch.RecipientEmail;
-            }
-
             await _repository.FeedbackRootCreate(
-                activity.From.AsTeamsChannelAccount().Email,
-                lastCompanionEmail,
+                lastMatch.SenderEmail,
+                lastMatch.SenderAadId,
+                lastMatch.RecipientEmail,
+                lastMatch.RecipientAadId,
                 FbRootTypes.Yes);
 
             return reply;

@@ -277,6 +277,12 @@
     <value>К сожалению, не удается обработать ваше сообщение. Совершите экскурсию, чтобы узнать больше о моих возможностях.</value>
     <comment>The text for the unrecognized input scenario</comment>
   </data>
+  <data name="UnregisteredUserText" xml:space="preserve">
+    <value>Дорогой друг! Приятно видеть ваше желание принять участие в Random Coffee прямо сейчас, но пары собеседников на эту неделю уже определены. Пожалуйста, дождитесь следующего понедельника. А пока можете заполнить свой профиль на портале, чтобы коллеги узнали вас получше.</value>
+  </data>
+  <data name="UserIsOptedDownText" xml:space="preserve">
+    <value>Дорогой друг! Приятно, что вы помните обо мне! Я обещал вас не беспокоить и продолжаю держать свое слово. Но так хочется видеться с вами почаще. Вы готовы возобновить свое участие в Random Coffee?</value>
+  </data>
   <data name="ViewProfileButtonText" xml:space="preserve">
     <value>Посмотреть профиль</value>
   </data>

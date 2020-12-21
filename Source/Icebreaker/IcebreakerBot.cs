@@ -287,7 +287,7 @@ namespace Icebreaker
                         foreach (var userInfo in allUsersList)
                         {
                             var dbMatch = dbMatchers
-                                .Where(p => p.SenderEmail == userInfo.ChannelAccount.Email)
+                                .Where(p => p.SenderAadId == userInfo.User.AadObjectId)
                                 .OrderByDescending(p => p.Created)
                                 .FirstOrDefault();
                             if (dbMatch != null)
@@ -298,7 +298,7 @@ namespace Icebreaker
                                 var card = FeedbackCard.GetCard(senderDetails?.GivenName, recipientDetails?.GivenName);
                                 await NotifyUser(connectorClient, card, userInfo.User, team.TenantId);
                                 await dataProvider.BotLastMessageUpdate(
-                                    userInfo.ChannelAccount.AadObjectId,
+                                    userInfo.User.AadObjectId,
                                     userInfo.ChannelAccount.Email,
                                     BotMessageTypes.Fb);
                             }
@@ -362,19 +362,21 @@ namespace Icebreaker
             var teamsPerson1 = pair.Item1.AsTeamsChannelAccount();
             var teamsPerson2 = pair.Item2.AsTeamsChannelAccount();
 
-            this.telemetryClient.TrackTrace($"json Item1: {JsonConvert.SerializeObject(teamsPerson1)}");
-
             var notifiedResults = 0;
-           
+
+            var aadId1 = pair.Item1.AadObjectId;
+            var aadId2 = pair.Item2.AadObjectId;
+            this.telemetryClient.TrackTrace($"sending pairup aadIds: {aadId1} {aadId2}");
+
             // Fill in person2's info in the card for person1
             var cardForPerson1 =
                 PairUpNotificationAdaptiveCard.GetCard(teamName, teamsPerson1, teamsPerson2, this.botDisplayName);
             if (await NotifyUser(connectorClient, cardForPerson1, teamsPerson1, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.UserMatchInfoSave(teamsPerson1.Email, teamsPerson1.ObjectId,
-                    teamsPerson2.Email, teamsPerson2.ObjectId);
-                await dataProvider.BotLastMessageUpdate(teamsPerson1.ObjectId, teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
+                await dataProvider.UserMatchInfoSave(teamsPerson1.Email, aadId1,
+                    teamsPerson2.Email, aadId2);
+                await dataProvider.BotLastMessageUpdate(aadId1, teamsPerson1.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Fill in person1's info in the card for person2
@@ -383,9 +385,9 @@ namespace Icebreaker
             if (await NotifyUser(connectorClient, cardForPerson2, teamsPerson2, tenantId))
             {
                 notifiedResults++;
-                await dataProvider.UserMatchInfoSave(teamsPerson2.Email, teamsPerson2.ObjectId,
-                    teamsPerson1.Email, teamsPerson1.ObjectId);
-                await dataProvider.BotLastMessageUpdate(teamsPerson2.ObjectId, teamsPerson2.Email, BotMessageTypes.NewMatchedPair);
+                await dataProvider.UserMatchInfoSave(teamsPerson2.Email, aadId2,
+                    teamsPerson1.Email, aadId1);
+                await dataProvider.BotLastMessageUpdate(aadId2, teamsPerson2.Email, BotMessageTypes.NewMatchedPair);
             }
 
             // Send notifications and return the number that was successful

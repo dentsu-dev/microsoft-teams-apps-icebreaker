@@ -13,7 +13,7 @@ namespace Icebreaker.Db.Entities
     /// <summary>
     /// Represents a user
     /// </summary>
-    public class UserInfo : Document
+    public class UserOptInStatusInfo : Document
     {
         /// <summary>
         /// Gets or sets the user's id in Teams (29:xxx).
@@ -48,6 +48,6 @@ namespace Icebreaker.Db.Entities
         /// Gets or sets a list of recent pairups
         /// </summary>
         [JsonProperty("recentPairups")]
-        public List<UserInfo> RecentPairUps { get; set; }
+        public List<UserOptInStatusInfo> RecentPairUps { get; set; }
     }
 }

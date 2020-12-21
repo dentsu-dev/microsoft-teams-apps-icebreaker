@@ -297,6 +297,7 @@
     <Compile Include="Db\Entities\FeedBackDetailInfo.cs" />
     <Compile Include="Db\Entities\FeedBackRootInfo.cs" />
     <Compile Include="Db\Entities\UnknownMessageInfo.cs" />
+    <Compile Include="Db\Entities\UserDetailsInfo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -309,7 +310,7 @@
     <Compile Include="Helpers\AdaptiveCards\WelcomeTeamAdaptiveCard.cs" />
     <Compile Include="Db\BotRepository.cs" />
     <Compile Include="Db\Entities\TeamInstallInfo.cs" />
-    <Compile Include="Db\Entities\UserInfo.cs" />
+    <Compile Include="Db\Entities\UserOptInStatusInfo.cs" />
     <Compile Include="Db\Entities\UserMatchInfo.cs" />
     <Compile Include="Helpers\StringExt.cs" />
     <Compile Include="IcebreakerBot.cs" />

@@ -31,6 +31,7 @@ namespace Icebreaker
                 .SingleInstance();
 
             builder.RegisterType<BotRepository>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
         }
     }

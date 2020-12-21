@@ -22,7 +22,7 @@ namespace Icebreaker.Db
     /// <summary>
     /// Data provider routines
     /// </summary>
-    public class BotRepository
+    public class BotRepository : IStartable
     {
         // Request the minimum throughput by default
         private const int DefaultRequestThroughput = 400;
@@ -39,6 +39,7 @@ namespace Icebreaker.Db
         private DocumentCollection fbDetailInfoCollection;
         private DocumentCollection fbCommentInfoCollection;
         private DocumentCollection unknownMessageInfoCollection;
+        private DocumentCollection userDetailsCollection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BotRepository"/> class.
@@ -129,14 +130,14 @@ namespace Icebreaker.Db
         /// </summary>
         /// <param name="userId">User id</param>
         /// <returns>User information</returns>
-        public async Task<UserInfo> UserInfoGet(string userId)
+        public async Task<UserOptInStatusInfo> UserInfoGet(string userId)
         {
             await this.EnsureInitializedAsync();
 
             try
             {
                 var documentUri = UriFactory.CreateDocumentUri(this.database.Id, this.usersCollection.Id, userId);
-                return await this.documentClient.ReadDocumentAsync<UserInfo>(documentUri, new RequestOptions { PartitionKey = new PartitionKey(userId) });
+                return await this.documentClient.ReadDocumentAsync<UserOptInStatusInfo>(documentUri, new RequestOptions { PartitionKey = new PartitionKey(userId) });
             }
             catch (Exception ex)
             {
@@ -157,7 +158,7 @@ namespace Icebreaker.Db
         {
             await this.EnsureInitializedAsync();
 
-            var userInfo = new UserInfo
+            var userInfo = new UserOptInStatusInfo
             {
                 TenantId = tenantId,
                 UserId = userId,
@@ -295,7 +296,19 @@ namespace Icebreaker.Db
                 Message = message,
                 Created = DateTime.UtcNow
             };
-            await this.documentClient.UpsertDocumentAsync(this.fbCommentInfoCollection.SelfLink, entity);
+            await this.documentClient.UpsertDocumentAsync(this.unknownMessageInfoCollection.SelfLink, entity);
+        }
+
+        public async Task UserDetailsUpdate(string aaId, string givenName, string name, string email)
+        {
+            var entity = new UserDetailsInfo
+            {
+                Id = aaId,
+                GivenName = givenName,
+                Name = name,
+                Email = email
+            };
+            await this.documentClient.UpsertDocumentAsync(this.userDetailsCollection.SelfLink, entity);
         }
 
         /// <summary>
@@ -317,6 +330,7 @@ namespace Icebreaker.Db
             var fbDetailInfoCollectionName = "FeedbackDetail";
             var fbCommentInfoCollectionName = "FeedbackComment";
             var unknownMessageInfoCollectionName = "UnknownMessage";
+            var userDetailsCollectionName = "UserDetails";
 
             this.documentClient = new DocumentClient(new Uri(endpointUrl), primaryKey);
 
@@ -351,6 +365,7 @@ namespace Icebreaker.Db
             fbDetailInfoCollection = await EnsureDocumentCollection(fbDetailInfoCollectionName, useSharedOffer, requestOptions);
             fbCommentInfoCollection = await EnsureDocumentCollection(fbCommentInfoCollectionName, useSharedOffer, requestOptions);
             unknownMessageInfoCollection = await EnsureDocumentCollection(unknownMessageInfoCollectionName, useSharedOffer, requestOptions);
+            userDetailsCollection = await EnsureDocumentCollection(userDetailsCollectionName, useSharedOffer, requestOptions);
 
             this.telemetryClient.TrackTrace("Data store initialized");
         }
@@ -374,6 +389,11 @@ namespace Icebreaker.Db
         private async Task EnsureInitializedAsync()
         {
             await this.initializeTask.Value;
+        }
+
+        public void Start()
+        {
+            EnsureInitializedAsync().Wait();
         }
     }
 }

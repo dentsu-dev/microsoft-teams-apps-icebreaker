@@ -91,7 +91,7 @@ namespace Icebreaker
                         foreach (var c in optedInUsers)
                         {
                             var t = c.AsTeamsChannelAccount();
-                            await dataProvider.UserDetailsUpdate(t.ObjectId, t.GivenName, t.Name, t.Email);
+                            await dataProvider.UserDetailsUpdate(t.ObjectId, t.GivenName, t.Name, t.Email, team.TenantId);
                         }
 
                         foreach (var pair in this.MakePairs(optedInUsers).Take(this.maxPairUpsPerTeam))
@@ -361,7 +361,6 @@ namespace Icebreaker
 
             var teamsPerson1 = pair.Item1.AsTeamsChannelAccount();
             var teamsPerson2 = pair.Item2.AsTeamsChannelAccount();
-            this.telemetryClient.TrackTrace($"json Item1: {JsonConvert.SerializeObject(teamsPerson1)}");
 
             var notifiedResults = 0;
            

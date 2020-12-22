@@ -305,7 +305,7 @@ namespace Icebreaker.Db
             await this.documentClient.UpsertDocumentAsync(this.unknownMessageInfoCollection.SelfLink, entity);
         }
 
-        public async Task UserDetailsUpdate(string aaId, string givenName, string name, string email)
+        public async Task UserDetailsUpdate(string aaId, string givenName, string name, string email, string tennantId)
         {
             await this.EnsureInitializedAsync();
 
@@ -314,7 +314,8 @@ namespace Icebreaker.Db
                 UserId = aaId,
                 GivenName = givenName,
                 Name = name,
-                Email = email
+                Email = email,
+                TenantId = tennantId
             };
             await this.documentClient.UpsertDocumentAsync(this.userDetailsCollection.SelfLink, entity);
         }

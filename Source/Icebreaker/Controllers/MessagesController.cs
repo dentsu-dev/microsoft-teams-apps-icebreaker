@@ -81,7 +81,6 @@ namespace Icebreaker
             try
             {
                 telemetryClient.TrackTrace($"search handler for activity : {activity.Text}");
-                telemetryClient.TrackTrace("activity json " + JsonConvert.SerializeObject(activity));
 
                 await _mediator.Send(new HandleMessageRequest{connectorClient = connectorClient, Activity = activity});
             }

@@ -294,6 +294,7 @@
     <Compile Include="Components\Msgs\UnregisterdUserRequestHandler.cs" />
     <Compile Include="Components\Msgs\UserIsOptedDownRequest.cs" />
     <Compile Include="Components\Msgs\UserIsOptedDownRequestHandler.cs" />
+    <Compile Include="Controllers\ExportController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\ProcessNowController.cs" />
     <Compile Include="Db\Entities\BotLastMessageToUserInfo.cs" />

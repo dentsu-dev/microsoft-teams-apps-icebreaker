@@ -333,6 +333,20 @@ namespace Icebreaker.Db
             return result;
         }
 
+        public async Task<List<FeedBackRootInfo>> FeedBackRootExport(DateTime dateTime)
+        {
+            await this.EnsureInitializedAsync();
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<FeedBackRootInfo> queryable = documentClient
+                .CreateDocumentQuery<FeedBackRootInfo>(this.usersMatchInfoCollection.SelfLink, option)
+                .OrderBy(p => p.Created)
+                .Where(p => p.Created > dateTime);
+
+            var result = queryable.ToList();
+            return result;
+        }
+
         /// <summary>
         /// Initializes the database connection.
         /// </summary>

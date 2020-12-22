@@ -49,6 +49,14 @@
                 "description": "The number of weeks between pairings."
             }
         },
+		"fbPairingWeekInterval": {
+            "type": "int",
+            "minValue": 1,
+            "defaultValue": 1,
+            "metadata": {
+                "description": "The number of weeks between feedback request."
+            }
+        },
         "pairingDayOfWeek": {
             "type":"string", 
             "allowedValues": [
@@ -63,6 +71,22 @@
             "defaultValue": "Monday",
             "metadata":{
                 "description": "The day of the week when pairings are created."
+            }
+        },
+		"fbPairingDayOfWeek": {
+            "type":"string", 
+            "allowedValues": [
+                "Sunday", 
+                "Monday", 
+                "Tuesday", 
+                "Wednesday", 
+                "Thursday", 
+                "Friday", 
+                "Saturday"
+            ], 
+            "defaultValue": "Friday",
+            "metadata":{
+                "description": "The day of the week when feedback wiil requested."
             }
         }, 
         "pairingHour": {
@@ -96,6 +120,39 @@
             "defaultValue": 10,
             "metadata": {
                 "description": "The hour at which pairings are created."
+            }
+        },
+		"fbPairingHour": {
+            "type": "int",
+            "allowedValues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+            ],
+            "defaultValue": 10,
+            "metadata": {
+                "description": "The hour at which feedback will requested."
             }
         },
         "pairingTimeZone": {
@@ -151,7 +208,7 @@
         "gitRepoUrl": {
             "type": "string",
             "minLength": 1,
-            "defaultValue": "https://github.com/OfficeDev/microsoft-teams-icebreaker-app.git",
+            "defaultValue": "https://github.com/dentsu-dev/microsoft-teams-apps-icebreaker.git",
             "metadata": {
               "description": "The URL to the GitHub repository to deploy."
             }
@@ -171,7 +228,8 @@
         "botUniqueName": "[concat(variables('baseResourceName'), '-', uniqueString(resourceGroup().id))]",
         "appServiceName": "[concat(variables('baseResourceName'), '-', uniqueString(resourceGroup().id))]",
         "cosmosDbName":"[concat(variables('baseResourceName'), '-storage-', uniqueString(resourceGroup().id))]",
-        "logicAppName":"[concat(variables('baseResourceName'), '-logicapp-', uniqueString(resourceGroup().id))]",
+        "logicAppName":"[concat(variables('baseResourceName'), '-logicapp-newPair-', uniqueString(resourceGroup().id))]",
+		"logicAppFbName":"[concat(variables('baseResourceName'), '-logicapp-feedback-', uniqueString(resourceGroup().id))]",
         "appInsightsName": "[variables('baseResourceName')]",
         "appHostingPlanName": "[variables('baseResourceName')]",
         "sharedSkus": [ "Free", "Shared" ],
@@ -183,6 +241,7 @@
         "appServiceBaseUrl": "[concat('https://', variables('appServiceBaseDomain'))]",
         "botMessagingUrl": "[concat(variables('appServiceBaseUrl'), '/api/messages')]",
         "pairingStartUrl": "[concat(variables('appServiceBaseUrl'), '/api/processnow/', parameters('pairingStartKey'))]",
+		"fbStartUrl": "[concat(variables('appServiceBaseUrl'), '/api/processnow/feedback/', parameters('pairingStartKey'))]",
         "pairingFrequency": "Week",
         "pairingMinute": 0,
         "manifestAppId": "d55d08d9-bacb-4567-942f-afd85d632dcc"
@@ -425,6 +484,56 @@
                             "inputs": {
                                 "method": "GET",
                                 "uri": "[variables('pairingStartUrl')]"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {}
+            },
+            "dependsOn": []
+        },
+		{
+            "name": "[variables('logicAppFbName')]", 
+            "type": "Microsoft.Logic/workflows", 
+            "apiVersion": "2016-06-01", 
+            "location": "[parameters('location')]",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "[variables('pairingFrequency')]",
+                                "interval": "[parameters('fbPairingWeekInterval')]",
+                                "schedule": {
+                                    "hours": [
+                                        "[parameters('fbPairingHour')]"
+                                    ],
+                                    "minutes": [
+                                        "[variables('pairingMinute')]"
+                                    ],
+                                    "weekDays": [
+                                        "[parameters('fbPairingDayOfWeek')]"
+                                    ]
+                                },
+                                "timeZone": "[parameters('pairingTimeZone')]"
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "HTTP": {
+                            "runAfter": {},
+                            "type": "Http",
+                            "inputs": {
+                                "method": "GET",
+                                "uri": "[variables('fbStartUrl')]"
                             }
                         }
                     },

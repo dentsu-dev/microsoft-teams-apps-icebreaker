@@ -150,7 +150,7 @@
     <value>Какая досада. Но вы не огорчайтесь, впереди новая неделя и новый интересный собеседник!</value>
   </data>
   <data name="FeedbackNoNoResponseReplyText" xml:space="preserve">
-    <value>Эх, но вы не огорчайтесь. Впереди новая неделя и новый интересный собеседний!</value>
+    <value>Эх, но вы не огорчайтесь. Впереди новая неделя и новый интересный собеседник!</value>
   </data>
   <data name="FeedbackReplyAfterCommentText" xml:space="preserve">
     <value>Спасибо за комментарий</value>
@@ -183,7 +183,7 @@
     <value>Ура! Буду счастлив вместе с вами, если поделитесь развернутым комментарием.</value>
   </data>
   <data name="FeedbackYesSuperReplyText2" xml:space="preserve">
-    <value>А впереди новая неделя и новый интересный собеседеник!</value>
+    <value>А впереди новая неделя и новый интересный собеседник!</value>
   </data>
   <data name="InitMessageToRecipientText" xml:space="preserve">
     <value>Привет! На этой неделе ты мой интересный собеседник :)</value>

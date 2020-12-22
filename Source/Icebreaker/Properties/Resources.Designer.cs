@@ -151,7 +151,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Эх, но вы не огорчайтесь. Впереди новая неделя и новый интересный собеседний!.
+        ///   Looks up a localized string similar to Эх, но вы не огорчайтесь. Впереди новая неделя и новый интересный собеседник!.
         /// </summary>
         internal static string FeedbackNoNoResponseReplyText {
             get {
@@ -250,7 +250,7 @@ namespace Icebreaker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to А впереди новая неделя и новый интересный собеседеник!.
+        ///   Looks up a localized string similar to А впереди новая неделя и новый интересный собеседник!.
         /// </summary>
         internal static string FeedbackYesSuperReplyText2 {
             get {

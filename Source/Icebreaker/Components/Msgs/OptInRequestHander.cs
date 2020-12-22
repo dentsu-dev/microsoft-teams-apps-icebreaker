@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Icebreaker.Helpers;
 using Icebreaker.Properties;
 using MediatR;
 using Microsoft.ApplicationInsights;
@@ -24,7 +25,7 @@ namespace Icebreaker.Components.IncomingMsgs
         {
             var activity = request.Activity;
 
-            var senderAadId = activity.From.Properties["aadObjectId"].ToString();
+            var senderAadId = activity.SenderAadId();
             var tenantId = activity.GetChannelData<TeamsChannelData>().Tenant.Id;
 
             // User opted in

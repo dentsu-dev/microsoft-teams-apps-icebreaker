@@ -55,5 +55,109 @@ namespace Icebreaker.Controllers
                 return this.Unauthorized();
             }
         }
+
+        /// <summary>
+        /// Action to export out FeedBackDetails entities
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <returns>content</returns>
+        [Route("api/export/fbdetails/{key}")]
+        public async Task<IHttpActionResult> GetFeedbackDetails([FromUri] string key)
+        {
+            var isKeyMatch = object.Equals(key, CloudConfigurationManager.GetSetting("Key"));
+            if (isKeyMatch)
+            {
+                // Get the token here to proactively trigger a refresh if the cached token is expired
+                // This avoids a race condition in MicrosoftAppCredentials.GetTokenAsync that can lead it to return an expired token
+                await this.botCredentials.GetTokenAsync();
+
+                var result =
+                    await _botRepository.FeedBackDetailsExport(DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays));
+
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.Unauthorized();
+            }
+        }
+
+        /// <summary>
+        /// Action to export out FeedBackComments entities
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <returns>content</returns>
+        [Route("api/export/fbcomments/{key}")]
+        public async Task<IHttpActionResult> GetFeedbackComments([FromUri] string key)
+        {
+            var isKeyMatch = object.Equals(key, CloudConfigurationManager.GetSetting("Key"));
+            if (isKeyMatch)
+            {
+                // Get the token here to proactively trigger a refresh if the cached token is expired
+                // This avoids a race condition in MicrosoftAppCredentials.GetTokenAsync that can lead it to return an expired token
+                await this.botCredentials.GetTokenAsync();
+
+                var result =
+                    await _botRepository.FeedBackCommentsExport(DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays));
+
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.Unauthorized();
+            }
+        }
+
+        /// <summary>
+        /// Action to export out Unknown messages entities
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <returns>content</returns>
+        [Route("api/export/unknown/{key}")]
+        public async Task<IHttpActionResult> GetUnknownMessages([FromUri] string key)
+        {
+            var isKeyMatch = object.Equals(key, CloudConfigurationManager.GetSetting("Key"));
+            if (isKeyMatch)
+            {
+                // Get the token here to proactively trigger a refresh if the cached token is expired
+                // This avoids a race condition in MicrosoftAppCredentials.GetTokenAsync that can lead it to return an expired token
+                await this.botCredentials.GetTokenAsync();
+
+                var result =
+                    await _botRepository.UnknownMessageExport(DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays));
+
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.Unauthorized();
+            }
+        }
+
+        /// <summary>
+        /// Action to export out User Matchers entities
+        /// </summary>
+        /// <param name="key">API key</param>
+        /// <returns>content</returns>
+        [Route("api/export/usermatch/{key}")]
+        public async Task<IHttpActionResult> GetUserMatches([FromUri] string key)
+        {
+            var isKeyMatch = object.Equals(key, CloudConfigurationManager.GetSetting("Key"));
+            if (isKeyMatch)
+            {
+                // Get the token here to proactively trigger a refresh if the cached token is expired
+                // This avoids a race condition in MicrosoftAppCredentials.GetTokenAsync that can lead it to return an expired token
+                await this.botCredentials.GetTokenAsync();
+
+                var result =
+                    await _botRepository.UserMatchExport(DateTime.UtcNow.AddDays(-1 * Constants.FeedBackDelayDays));
+
+                return this.Ok(result);
+            }
+            else
+            {
+                return this.Unauthorized();
+            }
+        }
     }
 }

@@ -339,7 +339,63 @@ namespace Icebreaker.Db
 
             var option = new FeedOptions { EnableCrossPartitionQuery = true };
             IQueryable<FeedBackRootInfo> queryable = documentClient
-                .CreateDocumentQuery<FeedBackRootInfo>(this.usersMatchInfoCollection.SelfLink, option)
+                .CreateDocumentQuery<FeedBackRootInfo>(this.fbRootInfoCollection.SelfLink, option)
+                .OrderBy(p => p.Created)
+                .Where(p => p.Created > dateTime);
+
+            var result = queryable.ToList();
+            return result;
+        }
+
+        public async Task<List<FeedBackDetailInfo>> FeedBackDetailsExport(DateTime dateTime)
+        {
+            await this.EnsureInitializedAsync();
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<FeedBackDetailInfo> queryable = documentClient
+                .CreateDocumentQuery<FeedBackDetailInfo>(this.fbDetailInfoCollection.SelfLink, option)
+                .OrderBy(p => p.Created)
+                .Where(p => p.Created > dateTime);
+
+            var result = queryable.ToList();
+            return result;
+        }
+
+        public async Task<List<FeedBackDetailInfo>> FeedBackCommentsExport(DateTime dateTime)
+        {
+            await this.EnsureInitializedAsync();
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<FeedBackDetailInfo> queryable = documentClient
+                .CreateDocumentQuery<FeedBackDetailInfo>(this.fbCommentInfoCollection.SelfLink, option)
+                .OrderBy(p => p.Created)
+                .Where(p => p.Created > dateTime);
+
+            var result = queryable.ToList();
+            return result;
+        }
+
+        public async Task<List<UserMatchInfo>> UserMatchExport(DateTime dateTime)
+        {
+            await this.EnsureInitializedAsync();
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<UserMatchInfo> queryable = documentClient
+                .CreateDocumentQuery<UserMatchInfo>(this.usersMatchInfoCollection.SelfLink, option)
+                .OrderBy(p => p.Created)
+                .Where(p => p.Created > dateTime);
+
+            var result = queryable.ToList();
+            return result;
+        }
+
+        public async Task<List<UnknownMessageInfo>> UnknownMessageExport(DateTime dateTime)
+        {
+            await this.EnsureInitializedAsync();
+
+            var option = new FeedOptions { EnableCrossPartitionQuery = true };
+            IQueryable<UnknownMessageInfo> queryable = documentClient
+                .CreateDocumentQuery<UnknownMessageInfo>(this.unknownMessageInfoCollection.SelfLink, option)
                 .OrderBy(p => p.Created)
                 .Where(p => p.Created > dateTime);
 
